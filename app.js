@@ -612,15 +612,15 @@ function drawRightAngleMarker(svg, x, y, size = 12, dirX = 1, dirY = -1) {
 // 7. THE 20 TRIANGLES DATABASE (CURRICULUM SPECIFIC FOR 5TH GRADE)
 // =============================================================================
 const TRIANGLES_DATA = [
-  // --- 1 to 8: ОСНОВАНИЕ И ВЫСОТА (ПО СТР. 91-92 УЧЕБНИКА) ---
+  // --- 1 to 5: ОПРЕДЕЛИ ВЫСОТУ ТРЕУГОЛЬНИКА ---
   {
     id: 1,
     topic: 'height',
-    topicLabel: 'Высота',
+    topicLabel: 'Определи высоту',
     title: '△ABC (остроугольный)',
     question: 'Назовите высоту к красному основанию AC',
-    answer: 'Высота BD (выходит из вершины B)',
-    solution: 'В остроугольном △ABC основанием выбрана сторона AC (красная). Противолежащая вершина — B. Опущенный из неё перпендикуляр — это отрезок BD ⊥ AC.',
+    answer: 'Высота BD (BD ⊥ AC)',
+    solution: 'В остроугольном △ABC основанием выбрана сторона AC (выделена красным). Противолежащая вершина — точка B. Отрезок BD опущен из неё под прямым углом 90° к основанию AC. Значит, высота — это BD.',
     draw: (svg, f) => {
       const scale = f ? 2.0 : 1.0;
       const ox = f ? 130 : 0, oy = f ? 40 : 0;
@@ -646,11 +646,11 @@ const TRIANGLES_DATA = [
   {
     id: 2,
     topic: 'height',
-    topicLabel: 'Высота = сторона',
+    topicLabel: 'Катет = высота',
     title: '△KLM (прямоугольный)',
     question: 'Какая сторона является высотой к основанию LM?',
     answer: 'Сторона KL (катет KL ⊥ LM)',
-    solution: 'В прямоугольном треугольнике угол ∠L = 90°. Боковая сторона KL уже перпендикулярна основанию LM! Значит, сама сторона KL и есть высота.',
+    solution: 'В прямоугольном треугольнике угол ∠L = 90°. Боковая сторона KL уже перпендикулярна основанию LM и выходит из противолежащей вершины K! Значит, сама сторона KL и есть высота.',
     draw: (svg, f) => {
       const s = f ? 2.0 : 1.0;
       const ox = f ? 120 : 0, oy = f ? 40 : 0;
@@ -679,7 +679,7 @@ const TRIANGLES_DATA = [
     title: '△DEF (тупоугольный)',
     question: 'Где лежит высота EG к основанию DF — внутри или снаружи?',
     answer: 'Снаружи (на продолжении DF)',
-    solution: 'Угол ∠D — тупой. Вершина E нависает сбоку, поэтому перпендикуляр не попадает на отрезок DF. Мы продолжаем основание пунктиром влево, и высота EG падает СНАРУЖИ!',
+    solution: 'Угол ∠D тупой (> 90°). Вершина E нависает сбоку, поэтому перпендикуляр не попадает на отрезок DF. Основание DF продолжают пунктиром влево за точку D, и высота EG падает СНАРУЖИ треугольника.',
     draw: (svg, f) => {
       const s = f ? 2.0 : 1.0;
       const ox = f ? 100 : 0, oy = f ? 40 : 0;
@@ -709,37 +709,39 @@ const TRIANGLES_DATA = [
   {
     id: 4,
     topic: 'height',
-    topicLabel: 'Ловушка с 2 высотами',
-    title: '△PQR (ловушка!)',
-    question: 'Какая линия — высота именно к стороне PQ: RS или QT?',
-    answer: 'Отрезок RS (RS ⊥ PQ)',
-    solution: 'На чертеже два перпендикуляра: QT опущен на сторону PR, а к основанию PQ опущен перпендикуляр RS из противолежащей вершины R. Правильный ответ — RS!',
+    topicLabel: 'Высота или наклонная',
+    title: '△PQR: выбор высоты',
+    question: 'Какой отрезок является высотой к PQ: RS или RT?',
+    answer: 'Отрезок RS (RS ⊥ PQ, угол 90°)',
+    solution: 'Высота треугольника обязана быть строго перпендикулярна основанию (угол 90°). Отрезок RT наклонный (угол не 90°), а отрезок RS перпендикулярен основанию PQ. Поэтому высота — только отрезок RS!',
     draw: (svg, f) => {
       const s = f ? 2.0 : 1.0;
       const ox = f ? 120 : 0, oy = f ? 40 : 0;
       svg.appendChild(createSvgElement('polygon', {
-        points: `${150*s+ox},${30*s+oy} ${40*s+ox},${115*s+oy} ${240*s+ox},${115*s+oy}`,
+        points: `${140*s+ox},${25*s+oy} ${35*s+ox},${115*s+oy} ${245*s+ox},${115*s+oy}`,
         fill: '#eff6ff', stroke: '#2563eb', 'stroke-width': '2'
       }));
+      // Red base PQ
       svg.appendChild(createSvgElement('line', {
-        x1: 40*s+ox, y1: 115*s+oy, x2: 240*s+ox, y2: 115*s+oy,
+        x1: 35*s+ox, y1: 115*s+oy, x2: 245*s+ox, y2: 115*s+oy,
         stroke: '#dc2626', 'stroke-width': f ? '6' : '3.5'
       }));
+      // Green height RS
       svg.appendChild(createSvgElement('line', {
-        x1: 150*s+ox, y1: 30*s+oy, x2: 150*s+ox, y2: 115*s+oy,
+        x1: 140*s+ox, y1: 25*s+oy, x2: 140*s+ox, y2: 115*s+oy,
         stroke: '#047857', 'stroke-width': f ? '4' : '2.5', 'stroke-dasharray': '5,3'
       }));
-      drawRightAngleMarker(svg, 150*s+ox, 115*s+oy, f ? 16 : 9, -1, -1);
+      drawRightAngleMarker(svg, 140*s+ox, 115*s+oy, f ? 16 : 9, -1, -1);
+      // Gray slanted line RT
       svg.appendChild(createSvgElement('line', {
-        x1: 240*s+ox, y1: 115*s+oy, x2: 95*s+ox, y2: 72*s+oy,
-        stroke: '#94a3b8', 'stroke-width': '2', 'stroke-dasharray': '4,3'
+        x1: 140*s+ox, y1: 25*s+oy, x2: 195*s+ox, y2: 115*s+oy,
+        stroke: '#94a3b8', 'stroke-width': '2', 'stroke-dasharray': '3,3'
       }));
-      drawRightAngleMarker(svg, 95*s+ox, 72*s+oy, f ? 14 : 8, 1, 1);
-      drawPillBadge(svg, 'R', 150*s+ox, 18*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
-      drawPillBadge(svg, 'P', 30*s+ox, 115*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
-      drawPillBadge(svg, 'Q', 250*s+ox, 115*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
-      drawPillBadge(svg, 'S', 150*s+ox, 128*s+oy, '#dcfce7', '#047857', '#86efac', f ? 13 : 10);
-      drawPillBadge(svg, 'T (ловушка)', 70*s+ox, 60*s+oy, '#fef2f2', '#dc2626', '#fca5a5', f ? 12 : 9);
+      drawPillBadge(svg, 'R', 140*s+ox, 14*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'P', 25*s+ox, 115*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'Q', 255*s+ox, 115*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'S (90°)', 140*s+ox, 128*s+oy, '#dcfce7', '#047857', '#86efac', f ? 13 : 10);
+      drawPillBadge(svg, 'RT (наклонная)', 205*s+ox, 128*s+oy, '#f1f5f9', '#64748b', '#cbd5e1', f ? 11 : 8.5);
     }
   },
   {
@@ -749,12 +751,12 @@ const TRIANGLES_DATA = [
     title: '△ABC (основание вверху)',
     question: 'Может ли BD быть высотой, если основание AC расположено сверху?',
     answer: 'Да, BD — высота (BD ⊥ AC)',
-    solution: 'Положение треугольника на странице не меняет геометрических законов! Основание AC лежит сверху, из вершины B снизу опущен перпендикуляр BD под прямым углом 90°. BD — настоящая высота.',
+    solution: 'Положение треугольника не меняет законов геометрии! Основание AC расположено сверху, а отрезок BD проведён из противолежащей нижней вершины B под прямым углом 90° к основанию AC. Значит, BD — высота.',
     draw: (svg, f) => {
       const s = f ? 2.0 : 1.0;
       const ox = f ? 120 : 0, oy = f ? 40 : 0;
       svg.appendChild(createSvgElement('polygon', {
-        points: `${40*s+ox},${35*s+oy} ${240*s+ox},${35*s+oy} ${140*s+ox},${115*s+oy}`,
+        points: `${140*s+ox},${115*s+oy} ${40*s+ox},${35*s+oy} ${240*s+ox},${35*s+oy}`,
         fill: '#eff6ff', stroke: '#2563eb', 'stroke-width': '2'
       }));
       svg.appendChild(createSvgElement('line', {
@@ -766,24 +768,28 @@ const TRIANGLES_DATA = [
         stroke: '#047857', 'stroke-width': f ? '4' : '2.5', 'stroke-dasharray': '5,3'
       }));
       drawRightAngleMarker(svg, 140*s+ox, 35*s+oy, f ? 16 : 9, 1, 1);
-      drawPillBadge(svg, 'ОСНОВАНИЕ AC', 140*s+ox, 20*s+oy, '#fee2e2', '#dc2626', '#fca5a5', f ? 13 : 9);
       drawPillBadge(svg, 'B', 140*s+ox, 128*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
-      drawPillBadge(svg, 'D', 160*s+ox, 48*s+oy, '#dcfce7', '#047857', '#86efac', f ? 13 : 10);
+      drawPillBadge(svg, 'A', 30*s+ox, 35*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'C', 250*s+ox, 35*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'D', 140*s+ox, 22*s+oy, '#dcfce7', '#047857', '#86efac', f ? 13 : 10);
+      drawPillBadge(svg, 'ОСНОВАНИЕ AC', 140*s+ox, 8*s+oy, '#fee2e2', '#dc2626', '#fca5a5', f ? 11 : 8.5);
     }
   },
+
+  // --- 6 to 10: ОПРЕДЕЛИ ОСНОВАНИЕ ТРЕУГОЛЬНИКА ---
   {
     id: 6,
-    topic: 'height',
-    topicLabel: 'Найти основание',
-    title: '△MNK',
+    topic: 'base',
+    topicLabel: 'Найди основание',
+    title: '△MNK: зелёная высота NH',
     question: 'К какому основанию проведена зелёная высота NH?',
-    answer: 'Основание MK (NH ⊥ MK)',
-    solution: 'Прямой угол (90°) у точки H лежит на стороне MK. Значит, основанием является сторона MK, а противолежащая вершина — N.',
+    answer: 'К основанию MK (NH ⊥ MK)',
+    solution: 'Высота NH выходит из вершины N и упирается под прямым углом 90° в сторону MK. Значит, основанием для высоты NH является сторона MK.',
     draw: (svg, f) => {
       const s = f ? 2.0 : 1.0;
       const ox = f ? 120 : 0, oy = f ? 40 : 0;
       svg.appendChild(createSvgElement('polygon', {
-        points: `${110*s+ox},${30*s+oy} ${30*s+ox},${115*s+oy} ${240*s+ox},${115*s+oy}`,
+        points: `${110*s+ox},${25*s+oy} ${30*s+ox},${115*s+oy} ${240*s+ox},${115*s+oy}`,
         fill: '#eff6ff', stroke: '#2563eb', 'stroke-width': '2'
       }));
       svg.appendChild(createSvgElement('line', {
@@ -791,11 +797,11 @@ const TRIANGLES_DATA = [
         stroke: '#dc2626', 'stroke-width': f ? '6' : '3.5'
       }));
       svg.appendChild(createSvgElement('line', {
-        x1: 110*s+ox, y1: 30*s+oy, x2: 110*s+ox, y2: 115*s+oy,
+        x1: 110*s+ox, y1: 25*s+oy, x2: 110*s+ox, y2: 115*s+oy,
         stroke: '#047857', 'stroke-width': f ? '4' : '2.5', 'stroke-dasharray': '5,3'
       }));
       drawRightAngleMarker(svg, 110*s+ox, 115*s+oy, f ? 16 : 9, 1, -1);
-      drawPillBadge(svg, 'N', 110*s+ox, 18*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'N', 110*s+ox, 14*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
       drawPillBadge(svg, 'M', 20*s+ox, 115*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
       drawPillBadge(svg, 'K', 250*s+ox, 115*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
       drawPillBadge(svg, 'H', 110*s+ox, 128*s+oy, '#dcfce7', '#047857', '#86efac', f ? 13 : 10);
@@ -803,17 +809,17 @@ const TRIANGLES_DATA = [
   },
   {
     id: 7,
-    topic: 'height',
-    topicLabel: 'Правило тупоугольного',
-    title: '△XYZ (тупоугольный)',
-    question: 'Что нужно сделать со стороной YZ, чтобы провести высоту из X?',
-    answer: 'Продлить YZ пунктиром влево за точку Y',
-    solution: 'Так как угол ∠Y тупой (> 90°), высота из вершины X падает снаружи треугольника. Поэтому чертёжным угольником сначала продлевают сторону YZ пунктиром, а затем опускают перпендикуляр.',
+    topic: 'base',
+    topicLabel: 'Внешняя высота',
+    title: '△EFG (тупоугольный)',
+    question: 'Назовите основание треугольника для внешней высоты FH',
+    answer: 'Основание EG (FH ⊥ EG)',
+    solution: 'В тупоугольном △EFG высота FH опущена под прямым углом на пунктирное продолжение стороны EG. Стороной самого треугольника является EG, значит основание — отрезок EG.',
     draw: (svg, f) => {
       const s = f ? 2.0 : 1.0;
       const ox = f ? 110 : 0, oy = f ? 40 : 0;
       svg.appendChild(createSvgElement('polygon', {
-        points: `${60*s+ox},${30*s+oy} ${140*s+ox},${115*s+oy} ${240*s+ox},${115*s+oy}`,
+        points: `${60*s+ox},${25*s+oy} ${140*s+ox},${115*s+oy} ${240*s+ox},${115*s+oy}`,
         fill: '#eff6ff', stroke: '#2563eb', 'stroke-width': '2'
       }));
       svg.appendChild(createSvgElement('line', {
@@ -825,23 +831,298 @@ const TRIANGLES_DATA = [
         stroke: '#dc2626', 'stroke-width': f ? '6' : '3.5'
       }));
       svg.appendChild(createSvgElement('line', {
-        x1: 60*s+ox, y1: 30*s+oy, x2: 60*s+ox, y2: 115*s+oy,
+        x1: 60*s+ox, y1: 25*s+oy, x2: 60*s+ox, y2: 115*s+oy,
         stroke: '#047857', 'stroke-width': f ? '4' : '2.5', 'stroke-dasharray': '5,3'
       }));
-      drawRightAngleMarker(svg, 60*s+ox, 115*s+oy, f ? 18 : 10, 1, -1);
-      drawPillBadge(svg, 'X', 60*s+ox, 18*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
-      drawPillBadge(svg, 'Y', 140*s+ox, 128*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
-      drawPillBadge(svg, 'Z', 250*s+ox, 115*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawRightAngleMarker(svg, 60*s+ox, 115*s+oy, f ? 16 : 9, 1, -1);
+      drawPillBadge(svg, 'F', 60*s+ox, 14*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'E (тупой)', 140*s+ox, 128*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 13 : 10);
+      drawPillBadge(svg, 'G', 250*s+ox, 115*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'H', 50*s+ox, 128*s+oy, '#dcfce7', '#047857', '#86efac', f ? 13 : 10);
     }
   },
   {
     id: 8,
-    topic: 'height',
-    topicLabel: 'Задание из учебника',
-    title: '△EFG (стр. 92 учебника)',
-    question: 'Назовите высоту к основанию EG, если проведены FH и EK',
-    answer: 'Высота FH (FH ⊥ EG)',
-    solution: 'К основанию EG противолежащей вершиной является F. Перпендикуляр из неё — это отрезок FH ⊥ EG. (А отрезок EK проведён к другой стороне FG).',
+    topic: 'base',
+    topicLabel: 'Найди основание',
+    title: '△PQR (из рабочей тетради)',
+    question: 'К какому основанию треугольника проведена высота PS?',
+    answer: 'К основанию QR (PS ⊥ QR)',
+    solution: 'Высота PS выходит из противолежащей вершины P и падает под прямым углом на пунктирное продолжение стороны QR. Значит, основанием треугольника является сторона QR.',
+    draw: (svg, f) => {
+      const s = f ? 2.0 : 1.0;
+      const ox = f ? 110 : 0, oy = f ? 40 : 0;
+      svg.appendChild(createSvgElement('polygon', {
+        points: `${70*s+ox},${25*s+oy} ${150*s+ox},${115*s+oy} ${245*s+ox},${115*s+oy}`,
+        fill: '#eff6ff', stroke: '#2563eb', 'stroke-width': '2'
+      }));
+      svg.appendChild(createSvgElement('line', {
+        x1: 70*s+ox, y1: 115*s+oy, x2: 150*s+ox, y2: 115*s+oy,
+        stroke: '#ef4444', 'stroke-width': '2.5', 'stroke-dasharray': '4,3'
+      }));
+      svg.appendChild(createSvgElement('line', {
+        x1: 150*s+ox, y1: 115*s+oy, x2: 245*s+ox, y2: 115*s+oy,
+        stroke: '#dc2626', 'stroke-width': f ? '6' : '3.5'
+      }));
+      svg.appendChild(createSvgElement('line', {
+        x1: 70*s+ox, y1: 25*s+oy, x2: 70*s+ox, y2: 115*s+oy,
+        stroke: '#047857', 'stroke-width': f ? '4' : '2.5', 'stroke-dasharray': '5,3'
+      }));
+      drawRightAngleMarker(svg, 70*s+ox, 115*s+oy, f ? 16 : 9, 1, -1);
+      drawPillBadge(svg, 'P', 70*s+ox, 14*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'Q', 150*s+ox, 128*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 13 : 10);
+      drawPillBadge(svg, 'R', 255*s+ox, 115*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'S', 60*s+ox, 128*s+oy, '#dcfce7', '#047857', '#86efac', f ? 13 : 10);
+    }
+  },
+  {
+    id: 9,
+    topic: 'base',
+    topicLabel: 'Боковое основание',
+    title: '△XYZ (вертикальное основание)',
+    question: 'Назовите основание, к которому проведена высота XW',
+    answer: 'Основание YZ (боковая сторона)',
+    solution: 'Основание не обязано лежать горизонтально! Здесь вертикальная сторона YZ справа является основанием, а проведённый к ней из противолежащей вершины X горизонтальный перпендикуляр XW — высота (XW ⊥ YZ).',
+    draw: (svg, f) => {
+      const s = f ? 2.0 : 1.0;
+      const ox = f ? 120 : 0, oy = f ? 40 : 0;
+      svg.appendChild(createSvgElement('polygon', {
+        points: `${40*s+ox},${70*s+oy} ${220*s+ox},${25*s+oy} ${220*s+ox},${115*s+oy}`,
+        fill: '#eff6ff', stroke: '#2563eb', 'stroke-width': '2'
+      }));
+      // Red base YZ
+      svg.appendChild(createSvgElement('line', {
+        x1: 220*s+ox, y1: 25*s+oy, x2: 220*s+ox, y2: 115*s+oy,
+        stroke: '#dc2626', 'stroke-width': f ? '6' : '3.5'
+      }));
+      // Green horizontal height XW
+      svg.appendChild(createSvgElement('line', {
+        x1: 40*s+ox, y1: 70*s+oy, x2: 220*s+ox, y2: 70*s+oy,
+        stroke: '#047857', 'stroke-width': f ? '4' : '2.5', 'stroke-dasharray': '5,3'
+      }));
+      drawRightAngleMarker(svg, 220*s+ox, 70*s+oy, f ? 16 : 9, -1, -1);
+      drawPillBadge(svg, 'X', 25*s+ox, 70*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'Y', 230*s+ox, 20*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'Z', 230*s+ox, 120*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'W', 235*s+ox, 70*s+oy, '#dcfce7', '#047857', '#86efac', f ? 13 : 10);
+    }
+  },
+  {
+    id: 10,
+    topic: 'base',
+    topicLabel: 'Верхняя сторона',
+    title: '△WXY (из рабочей тетради)',
+    question: 'К какой стороне треугольника проведена высота YZ?',
+    answer: 'К стороне WX (YZ ⊥ WX)',
+    solution: 'Из трёх сторон треугольника WXY высота YZ выходит из вершины Y и перпендикулярна верхней стороне WX под углом 90°. Значит, основание — отрезок WX.',
+    draw: (svg, f) => {
+      const s = f ? 2.0 : 1.0;
+      const ox = f ? 120 : 0, oy = f ? 40 : 0;
+      svg.appendChild(createSvgElement('polygon', {
+        points: `${40*s+ox},${30*s+oy} ${210*s+ox},${30*s+oy} ${120*s+ox},${115*s+oy}`,
+        fill: '#eff6ff', stroke: '#2563eb', 'stroke-width': '2'
+      }));
+      svg.appendChild(createSvgElement('line', {
+        x1: 40*s+ox, y1: 30*s+oy, x2: 210*s+ox, y2: 30*s+oy,
+        stroke: '#dc2626', 'stroke-width': f ? '6' : '3.5'
+      }));
+      svg.appendChild(createSvgElement('line', {
+        x1: 120*s+ox, y1: 115*s+oy, x2: 120*s+ox, y2: 30*s+oy,
+        stroke: '#047857', 'stroke-width': f ? '4' : '2.5', 'stroke-dasharray': '5,3'
+      }));
+      drawRightAngleMarker(svg, 120*s+ox, 30*s+oy, f ? 16 : 9, 1, 1);
+      drawPillBadge(svg, 'W', 25*s+ox, 30*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'X', 225*s+ox, 30*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'Y', 120*s+ox, 128*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'Z', 120*s+ox, 18*s+oy, '#dcfce7', '#047857', '#86efac', f ? 13 : 10);
+    }
+  },
+
+  // --- 11 to 15: ЛОВУШКИ И ПРАВИЛА ---
+  {
+    id: 11,
+    topic: 'traps',
+    topicLabel: 'Ловушка с 2 высотами',
+    title: '△PQR (из рабочей тетради №1c)',
+    question: 'Какая высота проведена к красному основанию PQ: RS или QT?',
+    answer: 'Отрезок RS (RS ⊥ PQ)',
+    solution: 'Ловушка из тетради: на чертеже два перпендикуляра. К основанию PQ противолежащей вершиной является R, поэтому высота к нему — RS. (А отрезок QT опущен на другую сторону PR!).',
+    draw: (svg, f) => {
+      const s = f ? 2.0 : 1.0;
+      const ox = f ? 120 : 0, oy = f ? 40 : 0;
+      svg.appendChild(createSvgElement('polygon', {
+        points: `${140*s+ox},${25*s+oy} ${40*s+ox},${115*s+oy} ${240*s+ox},${115*s+oy}`,
+        fill: '#eff6ff', stroke: '#2563eb', 'stroke-width': '2'
+      }));
+      svg.appendChild(createSvgElement('line', {
+        x1: 40*s+ox, y1: 115*s+oy, x2: 240*s+ox, y2: 115*s+oy,
+        stroke: '#dc2626', 'stroke-width': f ? '6' : '3.5'
+      }));
+      svg.appendChild(createSvgElement('line', {
+        x1: 140*s+ox, y1: 25*s+oy, x2: 140*s+ox, y2: 115*s+oy,
+        stroke: '#047857', 'stroke-width': f ? '4' : '2.5', 'stroke-dasharray': '5,3'
+      }));
+      drawRightAngleMarker(svg, 140*s+ox, 115*s+oy, f ? 16 : 9, -1, -1);
+      svg.appendChild(createSvgElement('line', {
+        x1: 240*s+ox, y1: 115*s+oy, x2: 85*s+ox, y2: 66*s+oy,
+        stroke: '#94a3b8', 'stroke-width': '2', 'stroke-dasharray': '4,3'
+      }));
+      drawRightAngleMarker(svg, 85*s+ox, 66*s+oy, f ? 14 : 8, 1, 1);
+      drawPillBadge(svg, 'R', 140*s+ox, 14*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'P', 25*s+ox, 115*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'Q', 250*s+ox, 115*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'S', 140*s+ox, 128*s+oy, '#dcfce7', '#047857', '#86efac', f ? 13 : 10);
+      drawPillBadge(svg, 'T (ловушка)', 70*s+ox, 55*s+oy, '#fef2f2', '#dc2626', '#fca5a5', f ? 11 : 8.5);
+    }
+  },
+  {
+    id: 12,
+    topic: 'traps',
+    topicLabel: 'Ловушка со скриншота',
+    title: '△KLM (из рабочей тетради №1d)',
+    question: 'Какая высота проведена к основанию LM: KN или LP?',
+    answer: 'Отрезок KN (KN ⊥ LM)',
+    solution: 'Ловушка! Отрезок LP перпендикулярен стороне KM. А к основанию LM противолежащей вершиной является K, и перпендикуляр из неё на продолжение LM — это внешний отрезок KN.',
+    draw: (svg, f) => {
+      const s = f ? 2.0 : 1.0;
+      const ox = f ? 110 : 0, oy = f ? 40 : 0;
+      svg.appendChild(createSvgElement('polygon', {
+        points: `${60*s+ox},${25*s+oy} ${140*s+ox},${115*s+oy} ${240*s+ox},${115*s+oy}`,
+        fill: '#eff6ff', stroke: '#2563eb', 'stroke-width': '2'
+      }));
+      svg.appendChild(createSvgElement('line', {
+        x1: 60*s+ox, y1: 115*s+oy, x2: 140*s+ox, y2: 115*s+oy,
+        stroke: '#ef4444', 'stroke-width': '2.5', 'stroke-dasharray': '4,3'
+      }));
+      svg.appendChild(createSvgElement('line', {
+        x1: 140*s+ox, y1: 115*s+oy, x2: 240*s+ox, y2: 115*s+oy,
+        stroke: '#dc2626', 'stroke-width': f ? '6' : '3.5'
+      }));
+      svg.appendChild(createSvgElement('line', {
+        x1: 60*s+ox, y1: 25*s+oy, x2: 60*s+ox, y2: 115*s+oy,
+        stroke: '#047857', 'stroke-width': f ? '4' : '2.5', 'stroke-dasharray': '5,3'
+      }));
+      drawRightAngleMarker(svg, 60*s+ox, 115*s+oy, f ? 16 : 9, 1, -1);
+      // Other perpendicular LP to side KM
+      svg.appendChild(createSvgElement('line', {
+        x1: 140*s+ox, y1: 115*s+oy, x2: 110*s+ox, y2: 50*s+oy,
+        stroke: '#94a3b8', 'stroke-width': '2', 'stroke-dasharray': '4,3'
+      }));
+      drawRightAngleMarker(svg, 110*s+ox, 50*s+oy, f ? 14 : 8, -1, 1);
+      drawPillBadge(svg, 'K', 60*s+ox, 14*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'L', 145*s+ox, 128*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 13 : 10);
+      drawPillBadge(svg, 'M', 250*s+ox, 115*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'N', 50*s+ox, 128*s+oy, '#dcfce7', '#047857', '#86efac', f ? 13 : 10);
+      drawPillBadge(svg, 'P (ловушка)', 100*s+ox, 40*s+oy, '#fef2f2', '#dc2626', '#fca5a5', f ? 11 : 8.5);
+    }
+  },
+  {
+    id: 13,
+    topic: 'traps',
+    topicLabel: 'Линия не из вершины',
+    title: '△ABC: отрезок KD ⊥ AC',
+    question: 'Является ли отрезок KD высотой треугольника ABC?',
+    answer: 'НЕТ! Высота обязана выходить из вершины B',
+    solution: 'Отрезок KD перпендикулярен основанию AC, но он выходит не из вершины B, а из точки K на середине стороны AB! Высота треугольника ОБЯЗАНА выходить строго из противолежащей вершины.',
+    draw: (svg, f) => {
+      const s = f ? 2.0 : 1.0;
+      const ox = f ? 120 : 0, oy = f ? 40 : 0;
+      svg.appendChild(createSvgElement('polygon', {
+        points: `${140*s+ox},${25*s+oy} ${35*s+ox},${115*s+oy} ${245*s+ox},${115*s+oy}`,
+        fill: '#eff6ff', stroke: '#2563eb', 'stroke-width': '2'
+      }));
+      svg.appendChild(createSvgElement('line', {
+        x1: 35*s+ox, y1: 115*s+oy, x2: 245*s+ox, y2: 115*s+oy,
+        stroke: '#dc2626', 'stroke-width': f ? '6' : '3.5'
+      }));
+      // Point K on AB (midpoint ~ 88, 70)
+      svg.appendChild(createSvgElement('line', {
+        x1: 88*s+ox, y1: 70*s+oy, x2: 88*s+ox, y2: 115*s+oy,
+        stroke: '#d97706', 'stroke-width': f ? '4' : '2.5', 'stroke-dasharray': '5,3'
+      }));
+      drawRightAngleMarker(svg, 88*s+ox, 115*s+oy, f ? 16 : 9, 1, -1);
+      drawPillBadge(svg, 'B (вершина)', 140*s+ox, 14*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'A', 25*s+ox, 115*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'C', 255*s+ox, 115*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'K (на стороне!)', 65*s+ox, 60*s+oy, '#fef3c7', '#b45309', '#fde68a', f ? 11 : 8.5);
+      drawPillBadge(svg, 'D', 88*s+ox, 128*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 13 : 10);
+    }
+  },
+  {
+    id: 14,
+    topic: 'traps',
+    topicLabel: 'Угол не прямой (70°)',
+    title: '△ABC: отрезок BL',
+    question: 'Является ли отрезок BL высотой к основанию AC?',
+    answer: 'НЕТ! Высота должна быть строго под углом 90°',
+    solution: 'Отрезок BL выходит из вершины B к основанию AC, но угол между ними равен 70°, а не 90°! Высота — это обязательно ПЕРПЕНДИКУЛЯР под прямым углом 90°.',
+    draw: (svg, f) => {
+      const s = f ? 2.0 : 1.0;
+      const ox = f ? 120 : 0, oy = f ? 40 : 0;
+      svg.appendChild(createSvgElement('polygon', {
+        points: `${130*s+ox},${25*s+oy} ${35*s+ox},${115*s+oy} ${245*s+ox},${115*s+oy}`,
+        fill: '#eff6ff', stroke: '#2563eb', 'stroke-width': '2'
+      }));
+      svg.appendChild(createSvgElement('line', {
+        x1: 35*s+ox, y1: 115*s+oy, x2: 245*s+ox, y2: 115*s+oy,
+        stroke: '#dc2626', 'stroke-width': f ? '6' : '3.5'
+      }));
+      // Slanted line BL
+      svg.appendChild(createSvgElement('line', {
+        x1: 130*s+ox, y1: 25*s+oy, x2: 185*s+ox, y2: 115*s+oy,
+        stroke: '#d97706', 'stroke-width': f ? '4' : '2.5'
+      }));
+      drawPillBadge(svg, 'B', 130*s+ox, 14*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'A', 25*s+ox, 115*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'C', 255*s+ox, 115*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'L', 185*s+ox, 128*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 13 : 10);
+      drawPillBadge(svg, '70° (НЕ 90°)', 155*s+ox, 100*s+oy, '#fee2e2', '#dc2626', '#fca5a5', f ? 11 : 8.5);
+    }
+  },
+  {
+    id: 15,
+    topic: 'traps',
+    topicLabel: 'Правило тупоугольного',
+    title: '△XYZ (правило линейки)',
+    question: 'Что нужно сделать с основанием тупоугольного △, чтобы провести высоту?',
+    answer: 'Продлить основание по линейке пунктиром',
+    solution: 'Так как вершина тупоугольного треугольника «нависает» сбоку от основания, перпендикуляр не попадает на саму сторону. Сначала прикладывают линейку и продлевают основание пунктиром по прямой линии!',
+    draw: (svg, f) => {
+      const s = f ? 2.0 : 1.0;
+      const ox = f ? 110 : 0, oy = f ? 40 : 0;
+      svg.appendChild(createSvgElement('polygon', {
+        points: `${60*s+ox},${25*s+oy} ${140*s+ox},${115*s+oy} ${240*s+ox},${115*s+oy}`,
+        fill: '#eff6ff', stroke: '#2563eb', 'stroke-width': '2'
+      }));
+      svg.appendChild(createSvgElement('line', {
+        x1: 60*s+ox, y1: 115*s+oy, x2: 140*s+ox, y2: 115*s+oy,
+        stroke: '#ef4444', 'stroke-width': '3', 'stroke-dasharray': '5,3'
+      }));
+      svg.appendChild(createSvgElement('line', {
+        x1: 140*s+ox, y1: 115*s+oy, x2: 240*s+ox, y2: 115*s+oy,
+        stroke: '#dc2626', 'stroke-width': f ? '6' : '3.5'
+      }));
+      svg.appendChild(createSvgElement('line', {
+        x1: 60*s+ox, y1: 25*s+oy, x2: 60*s+ox, y2: 115*s+oy,
+        stroke: '#047857', 'stroke-width': f ? '4' : '2.5', 'stroke-dasharray': '5,3'
+      }));
+      drawRightAngleMarker(svg, 60*s+ox, 115*s+oy, f ? 16 : 9, 1, -1);
+      drawPillBadge(svg, 'X', 60*s+ox, 14*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'Y (тупой)', 140*s+ox, 128*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 13 : 10);
+      drawPillBadge(svg, 'Z', 250*s+ox, 115*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'ПУНКТИР ПО ЛИНЕЙКЕ', 95*s+ox, 98*s+oy, '#fef3c7', '#b45309', '#fde68a', f ? 11 : 8);
+    }
+  },
+
+  // --- 16 to 20: 3 ВЫСОТЫ И СВОЙСТВА ТРЕУГОЛЬНИКА ---
+  {
+    id: 16,
+    topic: 'properties',
+    topicLabel: 'Стр. 92: Случай 1',
+    title: '△EFG: основание EG',
+    question: 'Основание — сторона EG. Назовите противолежащую вершину и высоту',
+    answer: 'Вершина F, высота FH (FH ⊥ EG)',
+    solution: 'Задание №2а со стр. 92 учебника: основанием выбрана сторона EG внизу. Противолежащая вершина — F. Опущенный из неё перпендикуляр — высота FH ⊥ EG.',
     draw: (svg, f) => {
       const s = f ? 2.0 : 1.0;
       const ox = f ? 120 : 0, oy = f ? 40 : 0;
@@ -864,263 +1145,141 @@ const TRIANGLES_DATA = [
       drawPillBadge(svg, 'H', 130*s+ox, 128*s+oy, '#dcfce7', '#047857', '#86efac', f ? 13 : 10);
     }
   },
-
-  // --- 9 to 15: ПЛОЩАДЬ S = (a · h) : 2 И ОБРАТНЫЕ ЗАДАЧИ ---
-  {
-    id: 9,
-    topic: 'area',
-    topicLabel: 'Площадь S',
-    title: '△ABC: a = 6 см, h = 4 см',
-    question: 'Найдите площадь S треугольника',
-    answer: 'S = 12 см²',
-    solution: 'Формула: S = (a · h) : 2. Подставляем: S = (6 · 4) : 2 = 24 : 2 = 12 см².',
-    draw: (svg, f) => {
-      const s = f ? 2.0 : 1.0;
-      const ox = f ? 120 : 0, oy = f ? 40 : 0;
-      svg.appendChild(createSvgElement('polygon', {
-        points: `${120*s+ox},${35*s+oy} ${40*s+ox},${115*s+oy} ${240*s+ox},${115*s+oy}`,
-        fill: '#eff6ff', stroke: '#2563eb', 'stroke-width': '2'
-      }));
-      svg.appendChild(createSvgElement('line', { x1: 40*s+ox, y1: 115*s+oy, x2: 240*s+ox, y2: 115*s+oy, stroke: '#dc2626', 'stroke-width': '4' }));
-      svg.appendChild(createSvgElement('line', { x1: 120*s+ox, y1: 35*s+oy, x2: 120*s+ox, y2: 115*s+oy, stroke: '#047857', 'stroke-width': '3', 'stroke-dasharray': '4,3' }));
-      drawRightAngleMarker(svg, 120*s+ox, 115*s+oy, f ? 14 : 8, 1, -1);
-      drawPillBadge(svg, 'h = 4 см', 160*s+ox, 75*s+oy, '#dcfce7', '#047857', '#86efac', f ? 13 : 10);
-      drawPillBadge(svg, 'a = 6 см', 140*s+ox, 128*s+oy, '#fee2e2', '#dc2626', '#fca5a5', f ? 13 : 10);
-    }
-  },
-  {
-    id: 10,
-    topic: 'area',
-    topicLabel: 'Площадь S',
-    title: '△DEF: a = 10 см, h = 5 см',
-    question: 'Найдите площадь S треугольника',
-    answer: 'S = 25 см²',
-    solution: 'Формула: S = (a · h) : 2. Подставляем: S = (10 · 5) : 2 = 50 : 2 = 25 см².',
-    draw: (svg, f) => {
-      const s = f ? 2.0 : 1.0;
-      const ox = f ? 120 : 0, oy = f ? 40 : 0;
-      svg.appendChild(createSvgElement('polygon', {
-        points: `${140*s+ox},${30*s+oy} ${30*s+ox},${115*s+oy} ${250*s+ox},${115*s+oy}`,
-        fill: '#eff6ff', stroke: '#2563eb', 'stroke-width': '2'
-      }));
-      svg.appendChild(createSvgElement('line', { x1: 30*s+ox, y1: 115*s+oy, x2: 250*s+ox, y2: 115*s+oy, stroke: '#dc2626', 'stroke-width': '4' }));
-      svg.appendChild(createSvgElement('line', { x1: 140*s+ox, y1: 30*s+oy, x2: 140*s+ox, y2: 115*s+oy, stroke: '#047857', 'stroke-width': '3', 'stroke-dasharray': '4,3' }));
-      drawPillBadge(svg, 'h = 5 см', 180*s+ox, 72*s+oy, '#dcfce7', '#047857', '#86efac', f ? 13 : 10);
-      drawPillBadge(svg, 'a = 10 см', 140*s+ox, 128*s+oy, '#fee2e2', '#dc2626', '#fca5a5', f ? 13 : 10);
-    }
-  },
-  {
-    id: 11,
-    topic: 'area',
-    topicLabel: 'Прямоугольный △',
-    title: 'Прямоугольный △ (катеты 8 и 3 см)',
-    question: 'Найдите площадь прямоугольного треугольника',
-    answer: 'S = 12 см²',
-    solution: 'В прямоугольном треугольнике катеты являются основанием и высотой! S = (a · b) : 2 = (8 · 3) : 2 = 24 : 2 = 12 см².',
-    draw: (svg, f) => {
-      const s = f ? 2.0 : 1.0;
-      const ox = f ? 120 : 0, oy = f ? 40 : 0;
-      svg.appendChild(createSvgElement('polygon', {
-        points: `${50*s+ox},${30*s+oy} ${50*s+ox},${115*s+oy} ${240*s+ox},${115*s+oy}`,
-        fill: '#eff6ff', stroke: '#2563eb', 'stroke-width': '2'
-      }));
-      drawRightAngleMarker(svg, 50*s+ox, 115*s+oy, f ? 16 : 9, 1, -1);
-      drawPillBadge(svg, 'b = 3 см', 45*s+ox, 20*s+oy, '#dcfce7', '#047857', '#86efac', f ? 13 : 10);
-      drawPillBadge(svg, 'a = 8 см', 145*s+ox, 128*s+oy, '#fee2e2', '#dc2626', '#fca5a5', f ? 13 : 10);
-    }
-  },
-  {
-    id: 12,
-    topic: 'area',
-    topicLabel: 'Площадь S',
-    title: '△KLM: a = 4 см, h = 7 см',
-    question: 'Найдите площадь S треугольника',
-    answer: 'S = 14 см²',
-    solution: 'S = (a · h) : 2 = (4 · 7) : 2 = 28 : 2 = 14 см².',
-    draw: (svg, f) => {
-      const s = f ? 2.0 : 1.0;
-      const ox = f ? 120 : 0, oy = f ? 40 : 0;
-      svg.appendChild(createSvgElement('polygon', {
-        points: `${100*s+ox},${25*s+oy} ${40*s+ox},${115*s+oy} ${230*s+ox},${115*s+oy}`,
-        fill: '#eff6ff', stroke: '#2563eb', 'stroke-width': '2'
-      }));
-      svg.appendChild(createSvgElement('line', { x1: 40*s+ox, y1: 115*s+oy, x2: 230*s+ox, y2: 115*s+oy, stroke: '#dc2626', 'stroke-width': '4' }));
-      svg.appendChild(createSvgElement('line', { x1: 100*s+ox, y1: 25*s+oy, x2: 100*s+ox, y2: 115*s+oy, stroke: '#047857', 'stroke-width': '3', 'stroke-dasharray': '4,3' }));
-      drawPillBadge(svg, 'h = 7 см', 145*s+ox, 70*s+oy, '#dcfce7', '#047857', '#86efac', f ? 13 : 10);
-      drawPillBadge(svg, 'a = 4 см', 135*s+ox, 128*s+oy, '#fee2e2', '#dc2626', '#fca5a5', f ? 13 : 10);
-    }
-  },
-  {
-    id: 13,
-    topic: 'area',
-    topicLabel: 'По клеточкам (стр. 91)',
-    title: '△PQR на сетке (1 клетка = 1 см)',
-    question: 'Основание 4 см, высота 3 см. Найдите S',
-    answer: 'S = 6 см²',
-    solution: 'Задача со стр. 91 учебника: основание a = 4 клетки = 4 см, высота h = 3 клетки = 3 см. S = (4 · 3) : 2 = 12 : 2 = 6 см².',
-    draw: (svg, f) => {
-      const s = f ? 2.0 : 1.0;
-      const ox = f ? 120 : 0, oy = f ? 40 : 0;
-      svg.appendChild(createSvgElement('polygon', {
-        points: `${130*s+ox},${40*s+oy} ${50*s+ox},${115*s+oy} ${210*s+ox},${115*s+oy}`,
-        fill: '#eff6ff', stroke: '#2563eb', 'stroke-width': '2'
-      }));
-      svg.appendChild(createSvgElement('line', { x1: 50*s+ox, y1: 115*s+oy, x2: 210*s+ox, y2: 115*s+oy, stroke: '#dc2626', 'stroke-width': '4' }));
-      svg.appendChild(createSvgElement('line', { x1: 130*s+ox, y1: 40*s+oy, x2: 130*s+ox, y2: 115*s+oy, stroke: '#047857', 'stroke-width': '3', 'stroke-dasharray': '4,3' }));
-      drawPillBadge(svg, 'h = 3 см (3 кл)', 180*s+ox, 77*s+oy, '#dcfce7', '#047857', '#86efac', f ? 13 : 10);
-      drawPillBadge(svg, 'a = 4 см (4 кл)', 130*s+ox, 128*s+oy, '#fee2e2', '#dc2626', '#fca5a5', f ? 13 : 10);
-    }
-  },
-  {
-    id: 14,
-    topic: 'area',
-    topicLabel: 'Обратная задача',
-    title: 'Найти h, если S = 20 см², a = 8 см',
-    question: 'Найдите неизвестную высоту h',
-    answer: 'h = 5 см',
-    solution: 'Обратная формула: h = (2 · S) : a. Подставляем: h = (2 · 20) : 8 = 40 : 8 = 5 см.',
-    draw: (svg, f) => {
-      const s = f ? 2.0 : 1.0;
-      const ox = f ? 120 : 0, oy = f ? 40 : 0;
-      svg.appendChild(createSvgElement('polygon', {
-        points: `${120*s+ox},${35*s+oy} ${40*s+ox},${115*s+oy} ${240*s+ox},${115*s+oy}`,
-        fill: '#eff6ff', stroke: '#2563eb', 'stroke-width': '2'
-      }));
-      svg.appendChild(createSvgElement('line', { x1: 120*s+ox, y1: 35*s+oy, x2: 120*s+ox, y2: 115*s+oy, stroke: '#047857', 'stroke-width': '3', 'stroke-dasharray': '4,3' }));
-      drawPillBadge(svg, 'S = 20 см²', 140*s+ox, 60*s+oy, '#fef3c7', '#b45309', '#fde68a', f ? 13 : 10);
-      drawPillBadge(svg, 'h = ?', 160*s+ox, 90*s+oy, '#dcfce7', '#047857', '#86efac', f ? 13 : 10);
-      drawPillBadge(svg, 'a = 8 см', 140*s+ox, 128*s+oy, '#fee2e2', '#dc2626', '#fca5a5', f ? 13 : 10);
-    }
-  },
-  {
-    id: 15,
-    topic: 'area',
-    topicLabel: 'Обратная задача',
-    title: 'Найти a, если S = 24 см², h = 6 см',
-    question: 'Найдите неизвестное основание a',
-    answer: 'a = 8 см',
-    solution: 'Обратная формула: a = (2 · S) : h. Подставляем: a = (2 · 24) : 6 = 48 : 6 = 8 см.',
-    draw: (svg, f) => {
-      const s = f ? 2.0 : 1.0;
-      const ox = f ? 120 : 0, oy = f ? 40 : 0;
-      svg.appendChild(createSvgElement('polygon', {
-        points: `${150*s+ox},${30*s+oy} ${30*s+ox},${115*s+oy} ${250*s+ox},${115*s+oy}`,
-        fill: '#eff6ff', stroke: '#2563eb', 'stroke-width': '2'
-      }));
-      drawPillBadge(svg, 'S = 24 см²', 150*s+ox, 55*s+oy, '#fef3c7', '#b45309', '#fde68a', f ? 13 : 10);
-      drawPillBadge(svg, 'h = 6 см', 185*s+ox, 85*s+oy, '#dcfce7', '#047857', '#86efac', f ? 13 : 10);
-      drawPillBadge(svg, 'a = ?', 140*s+ox, 128*s+oy, '#fee2e2', '#dc2626', '#fca5a5', f ? 13 : 10);
-    }
-  },
-
-  // --- 16 to 20: УГЛЫ, ПЕРИМЕТР И СВОЙСТВА ---
-  {
-    id: 16,
-    topic: 'angles',
-    topicLabel: 'Прямоугольный △',
-    title: 'Прямоугольный △: S = 18 см², a = 4 см',
-    question: 'Найдите длину второго катета b',
-    answer: 'b = 9 см',
-    solution: 'В прямоугольном треугольнике S = (a · b) : 2. Отсюда b = (2 · S) : a = (2 · 18) : 4 = 36 : 4 = 9 см.',
-    draw: (svg, f) => {
-      const s = f ? 2.0 : 1.0;
-      const ox = f ? 120 : 0, oy = f ? 40 : 0;
-      svg.appendChild(createSvgElement('polygon', {
-        points: `${50*s+ox},${30*s+oy} ${50*s+ox},${115*s+oy} ${230*s+ox},${115*s+oy}`,
-        fill: '#eff6ff', stroke: '#2563eb', 'stroke-width': '2'
-      }));
-      drawRightAngleMarker(svg, 50*s+ox, 115*s+oy, f ? 16 : 9, 1, -1);
-      drawPillBadge(svg, 'S = 18 см²', 120*s+ox, 70*s+oy, '#fef3c7', '#b45309', '#fde68a', f ? 13 : 10);
-      drawPillBadge(svg, 'b = ?', 45*s+ox, 20*s+oy, '#dcfce7', '#047857', '#86efac', f ? 13 : 10);
-      drawPillBadge(svg, 'a = 4 см', 140*s+ox, 128*s+oy, '#fee2e2', '#dc2626', '#fca5a5', f ? 13 : 10);
-    }
-  },
   {
     id: 17,
-    topic: 'angles',
-    topicLabel: 'Периметр P',
-    title: '△ABC: стороны 5, 7 и 8 см',
-    question: 'Найдите периметр P треугольника',
-    answer: 'P = 20 см',
-    solution: 'Периметр треугольника — это сумма всех трёх его сторон: P = a + b + c = 5 + 7 + 8 = 20 см.',
+    topic: 'properties',
+    topicLabel: 'Стр. 92: Случай 2',
+    title: '△EFG: основание EF',
+    question: 'Основание — сторона EF. Назовите противолежащую вершину и высоту',
+    answer: 'Вершина G, высота GJ (GJ ⊥ EF)',
+    solution: 'Задание №2b со стр. 92 учебника: теперь основанием выбрана левая сторона EF! Напротив неё лежит вершина G. Перпендикуляр из неё к стороне EF — это высота GJ.',
     draw: (svg, f) => {
       const s = f ? 2.0 : 1.0;
       const ox = f ? 120 : 0, oy = f ? 40 : 0;
       svg.appendChild(createSvgElement('polygon', {
-        points: `${110*s+ox},${30*s+oy} ${40*s+ox},${115*s+oy} ${240*s+ox},${115*s+oy}`,
-        fill: '#eff6ff', stroke: '#2563eb', 'stroke-width': '2.5'
+        points: `${130*s+ox},${25*s+oy} ${35*s+ox},${115*s+oy} ${240*s+ox},${115*s+oy}`,
+        fill: '#eff6ff', stroke: '#94a3b8', 'stroke-width': '2'
       }));
-      drawPillBadge(svg, '5 см', 60*s+ox, 65*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 13 : 10);
-      drawPillBadge(svg, '7 см', 190*s+ox, 65*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 13 : 10);
-      drawPillBadge(svg, '8 см', 140*s+ox, 128*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 13 : 10);
+      // Red base EF (left side)
+      svg.appendChild(createSvgElement('line', {
+        x1: 35*s+ox, y1: 115*s+oy, x2: 130*s+ox, y2: 25*s+oy,
+        stroke: '#dc2626', 'stroke-width': f ? '6' : '3.5'
+      }));
+      // Green height GJ from G(240, 115) perpendicular to EF
+      svg.appendChild(createSvgElement('line', {
+        x1: 240*s+ox, y1: 115*s+oy, x2: 75*s+ox, y2: 77*s+oy,
+        stroke: '#047857', 'stroke-width': f ? '4' : '2.5', 'stroke-dasharray': '5,3'
+      }));
+      drawRightAngleMarker(svg, 75*s+ox, 77*s+oy, f ? 14 : 8, 1, 1);
+      drawPillBadge(svg, 'F', 130*s+ox, 14*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'E', 25*s+ox, 115*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'G', 250*s+ox, 115*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'J', 60*s+ox, 70*s+oy, '#dcfce7', '#047857', '#86efac', f ? 13 : 10);
     }
   },
   {
     id: 18,
-    topic: 'angles',
-    topicLabel: 'Равнобедренный △',
-    title: 'Равнобедренный △ (боковые по 6 см, основание 4)',
-    question: 'Найдите периметр P треугольника',
-    answer: 'P = 16 см',
-    solution: 'У равнобедренного треугольника две боковые стороны равны: P = 6 + 6 + 4 = 16 см.',
+    topic: 'properties',
+    topicLabel: 'Стр. 92: Случай 3',
+    title: '△EFG: основание FG',
+    question: 'Основание — сторона FG. Назовите высоту из противолежащей вершины E',
+    answer: 'Высота EK (EK ⊥ FG)',
+    solution: 'Задание №2c со стр. 92 (вопрос девочки): если основание — правая сторона FG, то противолежащая вершина — E. Опущенный из неё перпендикуляр — высота EK.',
     draw: (svg, f) => {
       const s = f ? 2.0 : 1.0;
       const ox = f ? 120 : 0, oy = f ? 40 : 0;
       svg.appendChild(createSvgElement('polygon', {
-        points: `${140*s+ox},${30*s+oy} ${50*s+ox},${115*s+oy} ${230*s+ox},${115*s+oy}`,
-        fill: '#eff6ff', stroke: '#2563eb', 'stroke-width': '2.5'
+        points: `${130*s+ox},${25*s+oy} ${35*s+ox},${115*s+oy} ${240*s+ox},${115*s+oy}`,
+        fill: '#eff6ff', stroke: '#94a3b8', 'stroke-width': '2'
       }));
-      drawPillBadge(svg, '6 см', 80*s+ox, 65*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 13 : 10);
-      drawPillBadge(svg, '6 см', 200*s+ox, 65*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 13 : 10);
-      drawPillBadge(svg, '4 см', 140*s+ox, 128*s+oy, '#fee2e2', '#dc2626', '#fca5a5', f ? 13 : 10);
+      // Red base FG (right side)
+      svg.appendChild(createSvgElement('line', {
+        x1: 130*s+ox, y1: 25*s+oy, x2: 240*s+ox, y2: 115*s+oy,
+        stroke: '#dc2626', 'stroke-width': f ? '6' : '3.5'
+      }));
+      // Green height EK from E(35, 115) perpendicular to FG
+      svg.appendChild(createSvgElement('line', {
+        x1: 35*s+ox, y1: 115*s+oy, x2: 180*s+ox, y2: 66*s+oy,
+        stroke: '#047857', 'stroke-width': f ? '4' : '2.5', 'stroke-dasharray': '5,3'
+      }));
+      drawRightAngleMarker(svg, 180*s+ox, 66*s+oy, f ? 14 : 8, -1, 1);
+      drawPillBadge(svg, 'F', 130*s+ox, 14*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'E', 25*s+ox, 115*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'G', 250*s+ox, 115*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'K', 195*s+ox, 60*s+oy, '#dcfce7', '#047857', '#86efac', f ? 13 : 10);
     }
   },
   {
     id: 19,
-    topic: 'angles',
-    topicLabel: 'Сумма углов 180°',
-    title: '△ABC: ∠A = 50°, ∠B = 70°',
-    question: 'Найдите третий угол ∠C',
-    answer: '∠C = 60°',
-    solution: 'Сумма всех трёх углов любого треугольника всегда равна 180°. ∠C = 180° - (50° + 70°) = 180° - 120° = 60°.',
+    topic: 'properties',
+    topicLabel: 'Сколько высот?',
+    title: '△ABC: 3 высоты',
+    question: 'Сколько всего высот можно провести в любом треугольнике?',
+    answer: 'Ровно 3 высоты (к каждой из трёх сторон)',
+    solution: 'Главное правило геометрии: у любого треугольника ровно 3 стороны и 3 вершины. К каждому основанию из противолежащей вершины можно провести свою высоту. Поэтому всего высот ровно 3!',
     draw: (svg, f) => {
       const s = f ? 2.0 : 1.0;
       const ox = f ? 120 : 0, oy = f ? 40 : 0;
       svg.appendChild(createSvgElement('polygon', {
-        points: `${130*s+ox},${30*s+oy} ${40*s+ox},${115*s+oy} ${240*s+ox},${115*s+oy}`,
+        points: `${130*s+ox},${25*s+oy} ${40*s+ox},${115*s+oy} ${240*s+ox},${115*s+oy}`,
         fill: '#eff6ff', stroke: '#2563eb', 'stroke-width': '2'
       }));
-      drawPillBadge(svg, '70°', 130*s+ox, 48*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 13 : 10);
-      drawPillBadge(svg, '50°', 70*s+ox, 105*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 13 : 10);
-      drawPillBadge(svg, '∠C = ?', 210*s+ox, 105*s+oy, '#fef3c7', '#b45309', '#fde68a', f ? 13 : 10);
+      // Height 1 from top vertex (green)
+      svg.appendChild(createSvgElement('line', {
+        x1: 130*s+ox, y1: 25*s+oy, x2: 130*s+ox, y2: 115*s+oy,
+        stroke: '#047857', 'stroke-width': f ? '3.5' : '2.2', 'stroke-dasharray': '4,3'
+      }));
+      // Height 2 from left vertex (purple)
+      svg.appendChild(createSvgElement('line', {
+        x1: 40*s+ox, y1: 115*s+oy, x2: 175*s+ox, y2: 62*s+oy,
+        stroke: '#7c3aed', 'stroke-width': f ? '3.5' : '2.2', 'stroke-dasharray': '4,3'
+      }));
+      // Height 3 from right vertex (amber)
+      svg.appendChild(createSvgElement('line', {
+        x1: 240*s+ox, y1: 115*s+oy, x2: 90*s+ox, y2: 65*s+oy,
+        stroke: '#d97706', 'stroke-width': f ? '3.5' : '2.2', 'stroke-dasharray': '4,3'
+      }));
+      drawPillBadge(svg, 'B', 130*s+ox, 14*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'A', 25*s+ox, 115*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'C', 250*s+ox, 115*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, '3 ВЫСОТЫ В △', 130*s+ox, 68*s+oy, '#ecfdf5', '#047857', '#a7f3d0', f ? 12 : 9);
     }
   },
   {
     id: 20,
-    topic: 'angles',
-    topicLabel: 'Прямоугольный угол',
-    title: 'Прямоугольный △: ∠D = 35°, ∠F = 90°',
-    question: 'Найдите второй острый угол ∠E',
-    answer: '∠E = 55°',
-    solution: 'Сумма острых углов прямоугольного треугольника равна 90° (или 180° - 90° - 35°): ∠E = 90° - 35° = 55°.',
+    topic: 'properties',
+    topicLabel: 'Прямоугольный △',
+    title: 'Прямоугольный △ (∠C = 90°)',
+    question: 'Сколько высот в прямоугольном △ совпадают с его сторонами?',
+    answer: 'Две высоты (два катета: AC и BC)',
+    solution: 'В прямоугольном треугольнике катеты образуют прямой угол 90°. Катет AC перпендикулярен BC (высота 1), а катет BC перпендикулярен AC (высота 2). Значит, ровно две высоты совпадают со сторонами!',
     draw: (svg, f) => {
       const s = f ? 2.0 : 1.0;
       const ox = f ? 120 : 0, oy = f ? 40 : 0;
       svg.appendChild(createSvgElement('polygon', {
-        points: `${50*s+ox},${30*s+oy} ${50*s+ox},${115*s+oy} ${230*s+ox},${115*s+oy}`,
-        fill: '#eff6ff', stroke: '#2563eb', 'stroke-width': '2'
+        points: `${50*s+ox},${25*s+oy} ${50*s+ox},${115*s+oy} ${240*s+ox},${115*s+oy}`,
+        fill: '#eff6ff', stroke: '#94a3b8', 'stroke-width': '2'
       }));
-      drawRightAngleMarker(svg, 50*s+ox, 115*s+oy, f ? 16 : 9, 1, -1);
-      drawPillBadge(svg, '35°', 80*s+ox, 45*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 13 : 10);
-      drawPillBadge(svg, '90°', 50*s+ox, 128*s+oy, '#dcfce7', '#047857', '#86efac', f ? 12 : 9);
-      drawPillBadge(svg, '∠E = ?', 200*s+ox, 105*s+oy, '#fef3c7', '#b45309', '#fde68a', f ? 13 : 10);
+      // Leg 1 (vertical green)
+      svg.appendChild(createSvgElement('line', {
+        x1: 50*s+ox, y1: 25*s+oy, x2: 50*s+ox, y2: 115*s+oy,
+        stroke: '#047857', 'stroke-width': f ? '6' : '3.5'
+      }));
+      // Leg 2 (horizontal green)
+      svg.appendChild(createSvgElement('line', {
+        x1: 50*s+ox, y1: 115*s+oy, x2: 240*s+ox, y2: 115*s+oy,
+        stroke: '#047857', 'stroke-width': f ? '6' : '3.5'
+      }));
+      drawRightAngleMarker(svg, 50*s+ox, 115*s+oy, f ? 18 : 10, 1, -1);
+      drawPillBadge(svg, 'A', 50*s+ox, 14*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'C (90°)', 35*s+ox, 128*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 13 : 10);
+      drawPillBadge(svg, 'B', 250*s+ox, 115*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
+      drawPillBadge(svg, 'Катет AC = Высота 1', 75*s+ox, 55*s+oy, '#dcfce7', '#047857', '#86efac', f ? 11 : 8.5);
+      drawPillBadge(svg, 'Катет BC = Высота 2', 150*s+ox, 128*s+oy, '#dcfce7', '#047857', '#86efac', f ? 11 : 8.5);
     }
   }
 ];
 
-// =============================================================================
-// 8. GRID RENDERING & CARD CREATION
-// =============================================================================
 let currentFilter = 'all';
 let currentActiveCardId = 1;
 
@@ -1138,9 +1297,10 @@ function renderTrianglesGrid() {
 
     // Filter logic
     if (currentFilter !== 'all') {
-      if (currentFilter === 'height' && !(data.id >= 1 && data.id <= 8)) card.style.display = 'none';
-      if (currentFilter === 'area' && !(data.id >= 9 && data.id <= 15)) card.style.display = 'none';
-      if (currentFilter === 'angles' && !(data.id >= 16 && data.id <= 20)) card.style.display = 'none';
+      if (currentFilter === 'height' && !(data.id >= 1 && data.id <= 5)) card.style.display = 'none';
+      if (currentFilter === 'base' && !(data.id >= 6 && data.id <= 10)) card.style.display = 'none';
+      if (currentFilter === 'traps' && !(data.id >= 11 && data.id <= 15)) card.style.display = 'none';
+      if (currentFilter === 'properties' && !(data.id >= 16 && data.id <= 20)) card.style.display = 'none';
     }
 
     // Card Top
