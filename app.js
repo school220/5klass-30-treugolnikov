@@ -615,6 +615,7 @@ const TRIANGLES_DATA = [
   // --- 1 to 5: ОПРЕДЕЛИ ВЫСОТУ ТРЕУГОЛЬНИКА ---
   {
     id: 1,
+    findTarget: '🎯 Найти: высоту к AC',
     topic: 'height',
     topicLabel: 'Определи высоту',
     title: '△ABC (остроугольный)',
@@ -645,6 +646,7 @@ const TRIANGLES_DATA = [
   },
   {
     id: 2,
+    findTarget: '🎯 Найти: сторону-высоту к LM',
     topic: 'height',
     topicLabel: 'Катет = высота',
     title: '△KLM (прямоугольный)',
@@ -674,6 +676,7 @@ const TRIANGLES_DATA = [
   },
   {
     id: 3,
+    findTarget: '🎯 Где высота: внутри / снаружи?',
     topic: 'height',
     topicLabel: 'Высота снаружи',
     title: '△DEF (тупоугольный)',
@@ -708,6 +711,7 @@ const TRIANGLES_DATA = [
   },
   {
     id: 4,
+    findTarget: '🎯 Высота: RS или RT?',
     topic: 'height',
     topicLabel: 'Высота или наклонная',
     title: '△PQR: выбор высоты',
@@ -746,6 +750,7 @@ const TRIANGLES_DATA = [
   },
   {
     id: 5,
+    findTarget: '🎯 Может ли BD быть высотой?',
     topic: 'height',
     topicLabel: 'Основание сверху',
     title: '△ABC (основание вверху)',
@@ -779,6 +784,7 @@ const TRIANGLES_DATA = [
   // --- 6 to 10: ОПРЕДЕЛИ ОСНОВАНИЕ ТРЕУГОЛЬНИКА ---
   {
     id: 6,
+    findTarget: '🎯 Найти: основание для NH',
     topic: 'base',
     topicLabel: 'Найди основание',
     title: '△MNK: зелёная высота NH',
@@ -809,6 +815,7 @@ const TRIANGLES_DATA = [
   },
   {
     id: 7,
+    findTarget: '🎯 Найти: основание для FH',
     topic: 'base',
     topicLabel: 'Внешняя высота',
     title: '△EFG (тупоугольный)',
@@ -843,6 +850,7 @@ const TRIANGLES_DATA = [
   },
   {
     id: 8,
+    findTarget: '🎯 Найти: основание для PS',
     topic: 'base',
     topicLabel: 'Найди основание',
     title: '△PQR (из рабочей тетради)',
@@ -877,6 +885,7 @@ const TRIANGLES_DATA = [
   },
   {
     id: 9,
+    findTarget: '🎯 Найти: основание для XW',
     topic: 'base',
     topicLabel: 'Боковое основание',
     title: '△XYZ (вертикальное основание)',
@@ -909,6 +918,7 @@ const TRIANGLES_DATA = [
   },
   {
     id: 10,
+    findTarget: '🎯 Найти: сторону-основание',
     topic: 'base',
     topicLabel: 'Верхняя сторона',
     title: '△WXY (из рабочей тетради)',
@@ -941,6 +951,7 @@ const TRIANGLES_DATA = [
   // --- 11 to 15: ЛОВУШКИ И ПРАВИЛА ---
   {
     id: 11,
+    findTarget: '🎯 Высота к PQ: RS или QT?',
     topic: 'traps',
     topicLabel: 'Ловушка с 2 высотами',
     title: '△PQR (из рабочей тетради №1c)',
@@ -977,6 +988,7 @@ const TRIANGLES_DATA = [
   },
   {
     id: 12,
+    findTarget: '🎯 Высота к LM: KN или LP?',
     topic: 'traps',
     topicLabel: 'Ловушка со скриншота',
     title: '△KLM (из рабочей тетради №1d)',
@@ -1018,6 +1030,7 @@ const TRIANGLES_DATA = [
   },
   {
     id: 13,
+    findTarget: '🎯 Высота ли отрезок KD?',
     topic: 'traps',
     topicLabel: 'Линия не из вершины',
     title: '△ABC: отрезок KD ⊥ AC',
@@ -1050,6 +1063,7 @@ const TRIANGLES_DATA = [
   },
   {
     id: 14,
+    findTarget: '🎯 Высота ли отрезок BL?',
     topic: 'traps',
     topicLabel: 'Угол не прямой (70°)',
     title: '△ABC: отрезок BL',
@@ -1081,6 +1095,7 @@ const TRIANGLES_DATA = [
   },
   {
     id: 15,
+    findTarget: '🎯 Как провести высоту снаружи?',
     topic: 'traps',
     topicLabel: 'Правило тупоугольного',
     title: '△XYZ (правило линейки)',
@@ -1117,6 +1132,7 @@ const TRIANGLES_DATA = [
   // --- 16 to 20: 3 ВЫСОТЫ И СВОЙСТВА ТРЕУГОЛЬНИКА ---
   {
     id: 16,
+    findTarget: '🎯 Найти: высоту к стороне EG',
     topic: 'properties',
     topicLabel: 'Стр. 92: Случай 1',
     title: '△EFG: основание EG',
@@ -1147,6 +1163,7 @@ const TRIANGLES_DATA = [
   },
   {
     id: 17,
+    findTarget: '🎯 Найти: высоту к стороне EF',
     topic: 'properties',
     topicLabel: 'Стр. 92: Случай 2',
     title: '△EFG: основание EF',
@@ -1179,6 +1196,7 @@ const TRIANGLES_DATA = [
   },
   {
     id: 18,
+    findTarget: '🎯 Найти: высоту к стороне FG',
     topic: 'properties',
     topicLabel: 'Стр. 92: Случай 3',
     title: '△EFG: основание FG',
@@ -1211,6 +1229,7 @@ const TRIANGLES_DATA = [
   },
   {
     id: 19,
+    findTarget: '🎯 Сколько всего высот в △?',
     topic: 'properties',
     topicLabel: 'Сколько высот?',
     title: '△ABC: 3 высоты',
@@ -1247,6 +1266,7 @@ const TRIANGLES_DATA = [
   },
   {
     id: 20,
+    findTarget: '🎯 Сколько высот совпадают со сторонами?',
     topic: 'properties',
     topicLabel: 'Прямоугольный △',
     title: 'Прямоугольный △ (∠C = 90°)',
@@ -1308,7 +1328,7 @@ function renderTrianglesGrid() {
     top.className = 'card-top';
     top.innerHTML = `
       <span class="card-idx">#${data.id}</span>
-      <span class="card-topic-tag">${data.topicLabel}</span>
+      <span class="card-find-badge">${data.findTarget}</span>
     `;
     card.appendChild(top);
 
@@ -1328,7 +1348,7 @@ function renderTrianglesGrid() {
     const bottom = document.createElement('div');
     bottom.className = 'card-bottom';
     bottom.innerHTML = `
-      <div class="card-question" title="${data.question}">🎯 ${data.question}</div>
+      <div class="card-question" title="${data.question}">❓ ${data.question}</div>
       <div class="teacher-answer-pill">✓ ${data.answer}</div>
     `;
     card.appendChild(bottom);
@@ -1362,7 +1382,7 @@ function openFocusModal(cardId) {
 
   if (numBadge) numBadge.textContent = `#${data.id}`;
   if (title) title.textContent = data.title;
-  if (topicBadge) topicBadge.textContent = data.topicLabel;
+  if (topicBadge) topicBadge.textContent = data.findTarget;
   if (qText) qText.textContent = data.question;
   if (solText) solText.textContent = data.solution;
   if (resText) resText.textContent = `Ответ: ${data.answer}`;
