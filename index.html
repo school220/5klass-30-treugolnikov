@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>30 Треугольников • Интерактивный тренажёр для электронной доски (5 класс)</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📐</text></svg>">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=JetBrains+Mono:wght@700;800&display=swap" rel="stylesheet">
+</head>
+<body class="fit-screen-mode">
+
+  <!-- TOP SMARTBOARD BAR -->
+  <header class="top-bar">
+    <div class="bar-left">
+      <div class="logo-badge">
+        <span class="logo-icon">📐</span>
+        <div class="logo-text">
+          <span class="logo-sub">МАТЕМАТИКА 5 КЛАСС</span>
+          <span class="logo-title">ТРЕНАЖЁР: 30 ТРЕУГОЛЬНИКОВ</span>
+        </div>
+      </div>
+
+      <!-- Quick Filter Pills -->
+      <nav class="filter-nav" id="filterNav">
+        <button class="filter-btn active" data-filter="all">Все 30 карточек</button>
+        <button class="filter-btn" data-filter="height">Высота и основание (1–10)</button>
+        <button class="filter-btn" data-filter="area">Площадь S (11–20)</button>
+        <button class="filter-btn" data-filter="angles">Углы и периметр (21–30)</button>
+      </nav>
+    </div>
+
+    <!-- Smartboard Utility Controls -->
+    <div class="bar-right">
+      <!-- Layout Fit Mode Toggle -->
+      <div class="mode-toggle-group">
+        <button class="mode-btn active" id="btnFitScreen" title="Все 30 треугольников на один экран без прокрутки (6x5)">
+          ⛶ В один экран
+        </button>
+        <button class="mode-btn" id="btnScrollMode" title="Крупный режим с прокруткой">
+          📜 Крупно
+        </button>
+      </div>
+
+      <!-- Quick Timer -->
+      <div class="timer-pill" id="timerWidget">
+        <button class="timer-btn" id="timerDisplayBtn" title="Таймер раунда">
+          <span class="timer-icon">⏱️</span>
+          <span class="timer-val" id="timerDisplay">03:00</span>
+        </button>
+        <div class="timer-dropdown" id="timerDropdown">
+          <div class="presets-row">
+            <button class="tp-btn" data-time="60">1 мин</button>
+            <button class="tp-btn active" data-time="180">3 мин</button>
+            <button class="tp-btn" data-time="300">5 мин</button>
+            <button class="tp-btn" data-time="600">10 мин</button>
+          </div>
+          <div class="timer-actions-row">
+            <button class="t-act-btn play" id="timerToggleBtn">▶ Старт</button>
+            <button class="t-act-btn reset" id="timerResetBtn">↺ Сброс</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Board Pen Tool -->
+      <button class="tool-btn pen-toggle-btn" id="penToggleBtn" title="Маркер для рисования поверх треугольников">
+        <span class="tool-icon">✏️</span>
+        <span class="tool-text">Маркер</span>
+      </button>
+
+      <!-- Sound Toggle -->
+      <button class="tool-btn sound-toggle-btn" id="soundToggleBtn" title="Звуки">
+        <span class="tool-icon" id="soundIcon">🔊</span>
+      </button>
+
+      <!-- Fullscreen -->
+      <button class="tool-btn fullscreen-btn" id="fullscreenBtn" title="На весь экран">
+        <span class="tool-icon">⛶</span>
+      </button>
+
+      <!-- SECRET TEACHER LOCK BUTTON -->
+      <button class="teacher-lock-btn" id="teacherLockBtn" title="Режим учителя (вход по паролю 5605741)">
+        <span class="lock-icon" id="lockIcon">🔒</span>
+        <span class="lock-text" id="lockText">Ответы учителя</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN 30-TRIANGLE STAGE (FITS ON ONE SCREEN) -->
+  <main class="grid-stage" id="gridStage">
+    <div class="triangles-grid" id="trianglesGrid">
+      <!-- 30 Cards will be generated dynamically -->
+    </div>
+  </main>
+
+  <!-- POPUP 1: FOCUS / ENLARGE CARD MODAL (FOR WHOLE-CLASS DISCUSSION) -->
+  <div class="modal-backdrop" id="focusModal">
+    <div class="modal-dialog focus-dialog">
+      <div class="dialog-header">
+        <div class="dh-left">
+          <span class="card-num-badge" id="focusNumBadge">#1</span>
+          <h2 id="focusTitle">Треугольник △ABC</h2>
+          <span class="dh-topic" id="focusTopicBadge">Высота и основание</span>
+        </div>
+        <div class="dh-right">
+          <button class="dialog-btn teacher-ans-btn" id="focusTeacherAnsBtn">
+            <span class="tab-icon">🔒</span> Показать ответ учителя
+          </button>
+          <button class="dialog-close-btn" onclick="closeFocusModal()">✕</button>
+        </div>
+      </div>
+
+      <div class="focus-body">
+        <!-- Left: Large High-Resolution SVG Canvas -->
+        <div class="focus-canvas-wrap">
+          <svg id="focusSvg" viewBox="0 0 540 320" preserveAspectRatio="xMidYMid meet"></svg>
+        </div>
+
+        <!-- Right: Task Description and Solution Panel -->
+        <div class="focus-info-panel">
+          <div class="task-prompt-card">
+            <span class="tpc-label">🎯 ЗАДАНИЕ ДЛЯ УЧЕНИКА У ДОСКИ:</span>
+            <div class="tpc-question" id="focusQuestionText">Загрузка задания...</div>
+          </div>
+
+          <!-- Secret Teacher Answer Block -->
+          <div class="solution-box hidden" id="focusSolutionBox">
+            <div class="sol-header">
+              <span class="sol-badge">ОТВЕТ И ПОШАГОВОЕ РЕШЕНИЕ ДЛЯ УЧИТЕЛЯ</span>
+            </div>
+            <div class="sol-explanation" id="focusSolutionText">
+              <!-- Inserted dynamically -->
+            </div>
+            <div class="sol-result" id="focusResultText">
+              <!-- Inserted dynamically -->
+            </div>
+          </div>
+
+          <!-- Locked prompt when teacher mode is off -->
+          <div class="locked-hint-box" id="focusLockedBox">
+            <span class="lh-icon">🔒</span>
+            <div class="lh-text">
+              <strong>Ответ скрыт для учеников у доски!</strong><br>
+              Нажмите кнопку выше или на замок и введите PIN-код учителя, чтобы открыть готовый ответ и формулу.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dialog-footer">
+        <button class="nav-card-btn" id="prevCardBtn" onclick="navigateCard(-1)">⬅ Предыдущий (#<span id="prevNum">30</span>)</button>
+        <span class="nav-hint">Используйте стрелки ◄ / ► на клавиатуре или кнопки</span>
+        <button class="nav-card-btn" id="nextCardBtn" onclick="navigateCard(1)">Следующий (#<span id="nextNum">2</span>) ➔</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- POPUP 2: SECRET TEACHER PIN PAD MODAL -->
+  <div class="modal-backdrop pin-modal-backdrop" id="pinModal">
+    <div class="modal-dialog pin-dialog">
+      <div class="pin-header">
+        <span class="pin-shield">🛡️</span>
+        <h3>Вход в режим учителя</h3>
+        <p>Введите секретный PIN-код для открытия ответов ко всем 30 треугольникам:</p>
+      </div>
+
+      <div class="pin-display-row">
+        <input type="password" id="pinInput" class="pin-input" maxlength="7" placeholder="•••••••" readonly autocomplete="off">
+        <button class="pin-clear-btn" id="pinClearBtn" title="Стереть">⌫</button>
+      </div>
+      <div class="pin-error-msg" id="pinErrorMsg"></div>
+
+      <!-- Touch Numpad for Smartboard -->
+      <div class="touch-numpad" id="touchNumpad">
+        <button class="num-key" data-digit="1">1</button>
+        <button class="num-key" data-digit="2">2</button>
+        <button class="num-key" data-digit="3">3</button>
+        <button class="num-key" data-digit="4">4</button>
+        <button class="num-key" data-digit="5">5</button>
+        <button class="num-key" data-digit="6">6</button>
+        <button class="num-key" data-digit="7">7</button>
+        <button class="num-key" data-digit="8">8</button>
+        <button class="num-key" data-digit="9">9</button>
+        <button class="num-key cancel-key" onclick="closePinModal()">Отмена</button>
+        <button class="num-key" data-digit="0">0</button>
+        <button class="num-key enter-key" id="pinEnterBtn">Ввод ➔</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHITEBOARD DRAWING OVERLAY -->
+  <div class="drawing-overlay" id="drawingOverlay">
+    <canvas id="drawingCanvas"></canvas>
+    <div class="pen-toolbar" id="penToolbar">
+      <div class="pen-color-picker">
+        <button class="color-dot active" style="background: #f59e0b;" data-color="#f59e0b" title="Жёлтый"></button>
+        <button class="color-dot" style="background: #ef4444;" data-color="#ef4444" title="Красный"></button>
+        <button class="color-dot" style="background: #10b981;" data-color="#10b981" title="Зелёный"></button>
+        <button class="color-dot" style="background: #3b82f6;" data-color="#3b82f6" title="Синий"></button>
+        <button class="color-dot" style="background: #ffffff; border: 2px solid #94a3b8;" data-color="#ffffff" title="Белый"></button>
+      </div>
+      <div class="pen-size-picker">
+        <button class="size-btn active" data-size="4">Тонкий</button>
+        <button class="size-btn" data-size="8">Средний</button>
+        <button class="size-btn" data-size="14">Маркер</button>
+      </div>
+      <button class="pen-action-btn eraser" id="eraserBtn">🧹 Ластик</button>
+      <button class="pen-action-btn clear" id="clearCanvasBtn">🗑️ Очистить</button>
+      <button class="pen-action-btn close" id="closePenBtn">✕ Выход</button>
+    </div>
+  </div>
+
+  <!-- Confetti Canvas -->
+  <canvas id="confettiCanvas"></canvas>
+
+  <script src="app.js"></script>
+</body>
+</html>

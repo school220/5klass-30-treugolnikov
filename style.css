@@ -1,0 +1,976 @@
+/* ==========================================================================
+   30 TRIANGLES SMARTBOARD TRAINER STYLESHEET (5TH GRADE)
+   Single-Screen Fit (6x5 Grid), Zero-Lag Touch, High Contrast & Teacher Mode
+   ========================================================================== */
+
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --primary-light: #eff6ff;
+  --accent-red: #dc2626;
+  --accent-green: #10b981;
+  --accent-amber: #f59e0b;
+  --accent-purple: #8b5cf6;
+  
+  --bg-main: #f1f5f9;
+  --bg-card: #ffffff;
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --text-light: #64748b;
+  
+  --border-color: #cbd5e1;
+  --border-strong: #94a3b8;
+  
+  --font-main: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', Consolas, monospace;
+
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.08);
+  --shadow-md: 0 4px 10px rgba(15, 23, 42, 0.12);
+  --shadow-lg: 0 12px 28px rgba(15, 23, 42, 0.2);
+}
+
+/* Reset & Touch Defaults */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+html, body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  font-family: var(--font-main);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.3;
+}
+
+body.scroll-mode {
+  overflow-y: auto;
+}
+
+/* ==========================================================================
+   TOP BAR (HEIGHT: 58PX)
+   ========================================================================== */
+.top-bar {
+  height: 58px;
+  background: #ffffff;
+  border-bottom: 2px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  box-shadow: var(--shadow-sm);
+  z-index: 50;
+  flex-shrink: 0;
+}
+
+.bar-left {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.logo-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: linear-gradient(135deg, #1e3a8a, #2563eb);
+  color: #ffffff;
+  padding: 4px 12px;
+  border-radius: 10px;
+}
+
+.logo-icon {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-sub {
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  color: #bfdbfe;
+}
+
+.logo-title {
+  font-size: 0.95rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+}
+
+/* Filter Nav */
+.filter-nav {
+  display: flex;
+  gap: 0.35rem;
+  background: #f1f5f9;
+  padding: 3px;
+  border-radius: 9999px;
+}
+
+.filter-btn {
+  background: transparent;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-family: var(--font-main);
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.filter-btn.active {
+  background: #ffffff;
+  color: var(--primary);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Bar Right Controls */
+.bar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mode-toggle-group {
+  display: flex;
+  background: #f1f5f9;
+  padding: 3px;
+  border-radius: 8px;
+  gap: 2px;
+}
+
+.mode-btn {
+  background: transparent;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-family: var(--font-main);
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.mode-btn.active {
+  background: #ffffff;
+  color: #0f172a;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+}
+
+/* Timer Pill */
+.timer-pill {
+  position: relative;
+}
+
+.timer-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: #f1f5f9;
+  border: 1.5px solid #cbd5e1;
+  padding: 6px 12px;
+  border-radius: 9999px;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #0f172a;
+  cursor: pointer;
+}
+
+.timer-dropdown {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background: #ffffff;
+  border: 2px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: var(--shadow-lg);
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  width: 220px;
+  z-index: 100;
+}
+
+.timer-dropdown.show {
+  display: flex;
+}
+
+.presets-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+}
+
+.tp-btn {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  padding: 6px;
+  border-radius: 6px;
+  font-family: var(--font-main);
+  font-size: 0.85rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.tp-btn.active {
+  background: #eff6ff;
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.timer-actions-row {
+  display: flex;
+  gap: 4px;
+}
+
+.t-act-btn {
+  flex: 1;
+  padding: 7px;
+  border-radius: 6px;
+  border: none;
+  font-family: var(--font-main);
+  font-weight: 900;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.t-act-btn.play { background: var(--accent-green); color: #fff; }
+.t-act-btn.pause { background: var(--accent-amber); color: #fff; }
+.t-act-btn.reset { background: #e2e8f0; color: #334155; }
+
+/* Tool buttons */
+.tool-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
+  padding: 6px 12px;
+  border-radius: 9999px;
+  font-family: var(--font-main);
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--text-main);
+  cursor: pointer;
+  min-height: 38px;
+}
+
+.tool-btn.active {
+  background: #fef3c7;
+  border-color: #f59e0b;
+  color: #b45309;
+}
+
+/* Secret Teacher Lock Button */
+.teacher-lock-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: #f8fafc;
+  border: 2px dashed #94a3b8;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-family: var(--font-main);
+  font-size: 0.9rem;
+  font-weight: 900;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  min-height: 38px;
+}
+
+.teacher-lock-btn:hover {
+  background: #f1f5f9;
+  border-color: #64748b;
+}
+
+.teacher-lock-btn.unlocked {
+  background: #ecfdf5;
+  border: 2px solid #10b981;
+  color: #065f46;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.25);
+}
+
+/* ==========================================================================
+   MAIN GRID STAGE (30 TRIANGLES FIT ON ONE SCREEN)
+   ========================================================================== */
+.grid-stage {
+  width: 100vw;
+  height: calc(100vh - 58px);
+  padding: 6px 10px;
+  box-sizing: border-box;
+}
+
+/* 6 Columns x 5 Rows Grid (Fits 100% on 1 screen) */
+body.fit-screen-mode .triangles-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: 6px;
+  width: 100%;
+  height: 100%;
+}
+
+/* Scroll mode */
+body.scroll-mode .triangles-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  padding-bottom: 2rem;
+}
+
+body.scroll-mode .tri-card {
+  height: 220px;
+}
+
+/* ==========================================================================
+   TRIANGLE CARD (COMPACT & CRISP FOR SMARTBOARD)
+   ========================================================================== */
+.tri-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-color);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 5px 8px;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.1s, border-color 0.15s, box-shadow 0.15s;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+.tri-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary);
+  box-shadow: var(--shadow-md);
+  z-index: 5;
+}
+
+.tri-card.solved {
+  border-color: #10b981;
+  background: #f0fdf4;
+}
+
+/* Card Header */
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2px;
+  flex-shrink: 0;
+}
+
+.card-idx {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 900;
+  background: #e2e8f0;
+  color: #0f172a;
+  padding: 1px 6px;
+  border-radius: 4px;
+  line-height: 1.2;
+}
+
+.tri-card.solved .card-idx {
+  background: #10b981;
+  color: #ffffff;
+}
+
+.card-topic-tag {
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #64748b;
+  letter-spacing: 0.02em;
+}
+
+/* Card SVG Canvas */
+.card-svg-container {
+  flex: 1;
+  width: 100%;
+  min-height: 0; /* allows shrinking in grid */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.card-svg-container svg {
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+}
+
+/* Card Task Prompt */
+.card-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.card-question {
+  font-size: 0.82rem;
+  font-weight: 900;
+  color: #1e293b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+
+/* Secret Teacher Answer Pill (Visible only when unlocked) */
+.teacher-answer-pill {
+  display: none;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 900;
+  color: #065f46;
+  background: #dcfce7;
+  border: 1px solid #86efac;
+  padding: 1px 5px;
+  border-radius: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+body.teacher-unlocked .teacher-answer-pill {
+  display: block;
+}
+
+/* ==========================================================================
+   MODAL WINDOWS (FOCUS MODAL & PIN MODAL)
+   ========================================================================== */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.65);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  padding: 1.5rem;
+}
+
+.modal-backdrop.active {
+  display: flex;
+}
+
+.modal-dialog {
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: modalPop 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalPop {
+  0% { transform: scale(0.92); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Focus Modal (Big Presentation on Smartboard) */
+.focus-dialog {
+  width: 90vw;
+  max-width: 1100px;
+  height: 82vh;
+  max-height: 720px;
+}
+
+.dialog-header {
+  padding: 12px 20px;
+  border-bottom: 2px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f8fafc;
+}
+
+.dh-left {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.card-num-badge {
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  font-weight: 900;
+  background: var(--primary);
+  color: #ffffff;
+  padding: 4px 12px;
+  border-radius: 8px;
+}
+
+.dh-left h2 {
+  font-size: 1.45rem;
+  font-weight: 900;
+  color: #0f172a;
+}
+
+.dh-topic {
+  font-size: 0.85rem;
+  font-weight: 900;
+  color: #1e40af;
+  background: #dbeafe;
+  padding: 4px 10px;
+  border-radius: 9999px;
+}
+
+.dh-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.dialog-btn {
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  font-family: var(--font-main);
+  font-size: 0.95rem;
+  font-weight: 900;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.dialog-btn.teacher-ans-btn {
+  background: #fef2f2;
+  border-color: #fca5a5;
+  color: #991b1b;
+}
+
+body.teacher-unlocked .dialog-btn.teacher-ans-btn {
+  background: #ecfdf5;
+  border-color: #86efac;
+  color: #065f46;
+}
+
+.dialog-close-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: #e2e8f0;
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: #334155;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dialog-close-btn:hover {
+  background: #cbd5e1;
+}
+
+/* Focus Body */
+.focus-body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  padding: 1.25rem;
+  gap: 1.25rem;
+  overflow: hidden;
+}
+
+.focus-canvas-wrap {
+  background: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.focus-canvas-wrap svg {
+  width: 100%;
+  height: 100%;
+}
+
+.focus-info-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow-y: auto;
+}
+
+.task-prompt-card {
+  background: #eff6ff;
+  border: 2px solid #bfdbfe;
+  border-left: 6px solid var(--primary);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+}
+
+.tpc-label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 900;
+  color: #1e40af;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.35rem;
+}
+
+.tpc-question {
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: #0f172a;
+  line-height: 1.35;
+}
+
+/* Secret Solution Box */
+.solution-box {
+  background: #ecfdf5;
+  border: 2px solid #a7f3d0;
+  border-left: 6px solid #10b981;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  animation: fadeIn 0.2s ease-in;
+}
+
+.solution-box.hidden {
+  display: none;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.sol-badge {
+  font-size: 0.75rem;
+  font-weight: 900;
+  color: #047857;
+  letter-spacing: 0.05em;
+}
+
+.sol-explanation {
+  font-size: 1.05rem;
+  color: #064e3b;
+  line-height: 1.45;
+}
+
+.sol-result {
+  background: #ffffff;
+  border: 1.5px solid #86efac;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: #047857;
+}
+
+/* Locked hint */
+.locked-hint-box {
+  background: #f8fafc;
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.locked-hint-box.hidden {
+  display: none;
+}
+
+.lh-icon {
+  font-size: 2.2rem;
+}
+
+.lh-text {
+  font-size: 0.95rem;
+  color: #64748b;
+  line-height: 1.4;
+}
+
+.dialog-footer {
+  padding: 10px 20px;
+  border-top: 2px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f8fafc;
+}
+
+.nav-card-btn {
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  font-family: var(--font-main);
+  font-size: 0.95rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.nav-card-btn:hover {
+  background: #eff6ff;
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.nav-hint {
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+/* ==========================================================================
+   PIN PAD MODAL (TOUCH OPTIMIZED FOR SMARTBOARD)
+   ========================================================================== */
+.pin-dialog {
+  width: 360px;
+  padding: 1.5rem;
+  align-items: center;
+  text-align: center;
+}
+
+.pin-shield {
+  font-size: 2.5rem;
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+.pin-header h3 {
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: #0f172a;
+}
+
+.pin-header p {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+.pin-display-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 1rem 0 0.5rem;
+  width: 100%;
+}
+
+.pin-input {
+  flex: 1;
+  height: 48px;
+  font-family: var(--font-mono);
+  font-size: 1.75rem;
+  font-weight: 900;
+  text-align: center;
+  letter-spacing: 0.3em;
+  background: #f1f5f9;
+  border: 2px solid #cbd5e1;
+  border-radius: 10px;
+  color: #0f172a;
+}
+
+.pin-clear-btn {
+  width: 48px;
+  height: 48px;
+  background: #e2e8f0;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.25rem;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.pin-error-msg {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #dc2626;
+  min-height: 20px;
+  margin-bottom: 0.5rem;
+}
+
+.touch-numpad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  width: 100%;
+}
+
+.num-key {
+  height: 52px;
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 10px;
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #0f172a;
+  cursor: pointer;
+  transition: all 0.1s;
+}
+
+.num-key:active {
+  background: #e2e8f0;
+  transform: scale(0.96);
+}
+
+.num-key.cancel-key {
+  font-family: var(--font-main);
+  font-size: 0.95rem;
+  color: #64748b;
+}
+
+.num-key.enter-key {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #ffffff;
+  font-family: var(--font-main);
+  font-size: 1.05rem;
+}
+
+.num-key.enter-key:active {
+  background: var(--primary-dark);
+}
+
+/* Shake animation for wrong password */
+.shake {
+  animation: shakeAnim 0.35s ease-in-out;
+}
+
+@keyframes shakeAnim {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-8px); }
+  40%, 80% { transform: translateX(8px); }
+}
+
+/* ==========================================================================
+   WHITEBOARD DRAWING OVERLAY
+   ========================================================================== */
+.drawing-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  pointer-events: none;
+  display: none;
+}
+
+.drawing-overlay.active {
+  display: block;
+  pointer-events: auto;
+}
+
+#drawingCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.pen-toolbar {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(15, 23, 42, 0.95);
+  padding: 8px 16px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: var(--shadow-lg);
+  pointer-events: auto;
+}
+
+.pen-color-picker {
+  display: flex;
+  gap: 6px;
+}
+
+.color-dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+.color-dot.active {
+  border-color: #ffffff;
+  transform: scale(1.15);
+}
+
+.pen-size-picker {
+  display: flex;
+  gap: 4px;
+}
+
+.size-btn {
+  background: transparent;
+  border: 1px solid #475569;
+  color: #cbd5e1;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-family: var(--font-main);
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.size-btn.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #ffffff;
+}
+
+.pen-action-btn {
+  background: #334155;
+  border: none;
+  color: #ffffff;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-family: var(--font-main);
+  font-size: 0.85rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.pen-action-btn.active {
+  background: var(--accent-amber);
+  color: #000;
+}
+
+.pen-action-btn.close {
+  background: #ef4444;
+}
+
+/* Confetti canvas */
+#confettiCanvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 300;
+}
