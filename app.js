@@ -1,7 +1,7 @@
 /**
  * =============================================================================
- * 30 TRIANGLES INTERACTIVE SMARTBOARD TRAINER (5TH GRADE)
- * Single-Screen Fit (6x5 Grid), Teacher Mode (Password: 5605741)
+ * 20 TRIANGLES INTERACTIVE SMARTBOARD TRAINER (5TH GRADE)
+ * Single-Screen Fit (5x4 Grid), Teacher Mode (Password: 5605741)
  * Zero Text Overlaps, Pure SVG Vectors, Offline Audio Synthesizer
  * =============================================================================
  */
@@ -482,7 +482,6 @@ function verifyPin() {
     sfx.playSuccess();
     confetti.fire(50);
 
-    // If focus modal was open, reveal solution
     refreshFocusModalAnswers();
   } else {
     sfx.playWrong();
@@ -498,7 +497,6 @@ function verifyPin() {
 
 function toggleTeacherMode() {
   if (isTeacherUnlocked) {
-    // Lock it again
     isTeacherUnlocked = false;
     document.body.classList.remove('teacher-unlocked');
     const lockBtn = document.getElementById('teacherLockBtn');
@@ -517,7 +515,6 @@ function toggleTeacherMode() {
 }
 window.toggleTeacherMode = toggleTeacherMode;
 
-// Event listeners for PIN Pad
 document.getElementById('teacherLockBtn').addEventListener('click', toggleTeacherMode);
 document.getElementById('pinClearBtn').addEventListener('click', clearPinInput);
 document.getElementById('pinEnterBtn').addEventListener('click', verifyPin);
@@ -528,7 +525,6 @@ document.querySelectorAll('.num-key[data-digit]').forEach(btn => {
   });
 });
 
-// Physical keyboard listener for PIN
 window.addEventListener('keydown', (e) => {
   const pinModal = document.getElementById('pinModal');
   if (pinModal && pinModal.classList.contains('active')) {
@@ -562,7 +558,6 @@ function createSvgElement(tag, attrs = {}) {
 }
 
 function drawGridBackground(svg, w, h) {
-  // subtle math grid lines
   const defs = createSvgElement('defs');
   const pattern = createSvgElement('pattern', {
     id: `grid-${Math.random().toString(36).substr(2, 5)}`,
@@ -603,10 +598,6 @@ function drawPillBadge(svg, text, x, y, bg = '#ffffff', fg = '#0f172a', border =
 }
 
 function drawRightAngleMarker(svg, x, y, size = 12, dirX = 1, dirY = -1) {
-  const g = createSvgElement('g');
-  const p1 = `${x},${y + dirY * size}`;
-  const p2 = `${x + dirX * size},${y + dirY * size}`;
-  const p3 = `${x + dirX * size},${y}`;
   const rect = createSvgElement('rect', {
     x: dirX > 0 ? x : x - size,
     y: dirY > 0 ? y : y - size,
@@ -618,10 +609,10 @@ function drawRightAngleMarker(svg, x, y, size = 12, dirX = 1, dirY = -1) {
 }
 
 // =============================================================================
-// 7. THE 30 TRIANGLES DATABASE (CURRICULUM SPECIFIC FOR 5TH GRADE)
+// 7. THE 20 TRIANGLES DATABASE (CURRICULUM SPECIFIC FOR 5TH GRADE)
 // =============================================================================
 const TRIANGLES_DATA = [
-  // --- 1 to 10: ОСНОВАНИЕ И ВЫСОТА (ПО СТР. 91-92 УЧЕБНИКА) ---
+  // --- 1 to 8: ОСНОВАНИЕ И ВЫСОТА (ПО СТР. 91-92 УЧЕБНИКА) ---
   {
     id: 1,
     topic: 'height',
@@ -631,20 +622,16 @@ const TRIANGLES_DATA = [
     answer: 'Высота BD (выходит из вершины B)',
     solution: 'В остроугольном △ABC основанием выбрана сторона AC (красная). Противолежащая вершина — B. Опущенный из неё перпендикуляр — это отрезок BD ⊥ AC.',
     draw: (svg, f) => {
-      // B(140, 30), A(30, 110), C(250, 110), D(140, 110)
       const scale = f ? 2.0 : 1.0;
       const ox = f ? 130 : 0, oy = f ? 40 : 0;
-      // poly
       svg.appendChild(createSvgElement('polygon', {
         points: `${140*scale+ox},${30*scale+oy} ${30*scale+ox},${110*scale+oy} ${250*scale+ox},${110*scale+oy}`,
         fill: '#eff6ff', stroke: '#2563eb', 'stroke-width': f ? '3.5' : '2'
       }));
-      // base AC red
       svg.appendChild(createSvgElement('line', {
         x1: 30*scale+ox, y1: 110*scale+oy, x2: 250*scale+ox, y2: 110*scale+oy,
         stroke: '#dc2626', 'stroke-width': f ? '6' : '3.5'
       }));
-      // height BD green
       svg.appendChild(createSvgElement('line', {
         x1: 140*scale+ox, y1: 30*scale+oy, x2: 140*scale+ox, y2: 110*scale+oy,
         stroke: '#047857', 'stroke-width': f ? '4' : '2.5', 'stroke-dasharray': '5,3'
@@ -671,12 +658,10 @@ const TRIANGLES_DATA = [
         points: `${50*s+ox},${30*s+oy} ${50*s+ox},${115*s+oy} ${240*s+ox},${115*s+oy}`,
         fill: '#eff6ff', stroke: '#94a3b8', 'stroke-width': '2'
       }));
-      // base LM
       svg.appendChild(createSvgElement('line', {
         x1: 50*s+ox, y1: 115*s+oy, x2: 240*s+ox, y2: 115*s+oy,
         stroke: '#dc2626', 'stroke-width': f ? '6' : '3.5'
       }));
-      // height KL
       svg.appendChild(createSvgElement('line', {
         x1: 50*s+ox, y1: 30*s+oy, x2: 50*s+ox, y2: 115*s+oy,
         stroke: '#047857', 'stroke-width': f ? '6' : '3.5'
@@ -698,22 +683,18 @@ const TRIANGLES_DATA = [
     draw: (svg, f) => {
       const s = f ? 2.0 : 1.0;
       const ox = f ? 100 : 0, oy = f ? 40 : 0;
-      // poly E(50, 30), D(120, 110), F(240, 110)
       svg.appendChild(createSvgElement('polygon', {
         points: `${50*s+ox},${30*s+oy} ${120*s+ox},${110*s+oy} ${240*s+ox},${110*s+oy}`,
         fill: '#eff6ff', stroke: '#2563eb', 'stroke-width': '2'
       }));
-      // ext line G(50, 110) to D(120, 110)
       svg.appendChild(createSvgElement('line', {
         x1: 50*s+ox, y1: 110*s+oy, x2: 120*s+ox, y2: 110*s+oy,
         stroke: '#ef4444', 'stroke-width': '2.5', 'stroke-dasharray': '4,3'
       }));
-      // base DF
       svg.appendChild(createSvgElement('line', {
         x1: 120*s+ox, y1: 110*s+oy, x2: 240*s+ox, y2: 110*s+oy,
         stroke: '#dc2626', 'stroke-width': f ? '6' : '3.5'
       }));
-      // height EG
       svg.appendChild(createSvgElement('line', {
         x1: 50*s+ox, y1: 30*s+oy, x2: 50*s+ox, y2: 110*s+oy,
         stroke: '#047857', 'stroke-width': f ? '4' : '2.5', 'stroke-dasharray': '5,3'
@@ -736,23 +717,19 @@ const TRIANGLES_DATA = [
     draw: (svg, f) => {
       const s = f ? 2.0 : 1.0;
       const ox = f ? 120 : 0, oy = f ? 40 : 0;
-      // R(150, 30), P(40, 115), Q(240, 115)
       svg.appendChild(createSvgElement('polygon', {
         points: `${150*s+ox},${30*s+oy} ${40*s+ox},${115*s+oy} ${240*s+ox},${115*s+oy}`,
         fill: '#eff6ff', stroke: '#2563eb', 'stroke-width': '2'
       }));
-      // base PQ red
       svg.appendChild(createSvgElement('line', {
         x1: 40*s+ox, y1: 115*s+oy, x2: 240*s+ox, y2: 115*s+oy,
         stroke: '#dc2626', 'stroke-width': f ? '6' : '3.5'
       }));
-      // height RS green
       svg.appendChild(createSvgElement('line', {
         x1: 150*s+ox, y1: 30*s+oy, x2: 150*s+ox, y2: 115*s+oy,
         stroke: '#047857', 'stroke-width': f ? '4' : '2.5', 'stroke-dasharray': '5,3'
       }));
       drawRightAngleMarker(svg, 150*s+ox, 115*s+oy, f ? 16 : 9, -1, -1);
-      // trap QT dashed grey
       svg.appendChild(createSvgElement('line', {
         x1: 240*s+ox, y1: 115*s+oy, x2: 95*s+ox, y2: 72*s+oy,
         stroke: '#94a3b8', 'stroke-width': '2', 'stroke-dasharray': '4,3'
@@ -776,17 +753,14 @@ const TRIANGLES_DATA = [
     draw: (svg, f) => {
       const s = f ? 2.0 : 1.0;
       const ox = f ? 120 : 0, oy = f ? 40 : 0;
-      // A(40, 35), C(240, 35), B(140, 115)
       svg.appendChild(createSvgElement('polygon', {
         points: `${40*s+ox},${35*s+oy} ${240*s+ox},${35*s+oy} ${140*s+ox},${115*s+oy}`,
         fill: '#eff6ff', stroke: '#2563eb', 'stroke-width': '2'
       }));
-      // base AC top red
       svg.appendChild(createSvgElement('line', {
         x1: 40*s+ox, y1: 35*s+oy, x2: 240*s+ox, y2: 35*s+oy,
         stroke: '#dc2626', 'stroke-width': f ? '6' : '3.5'
       }));
-      // height BD green upwards
       svg.appendChild(createSvgElement('line', {
         x1: 140*s+ox, y1: 115*s+oy, x2: 140*s+ox, y2: 35*s+oy,
         stroke: '#047857', 'stroke-width': f ? '4' : '2.5', 'stroke-dasharray': '5,3'
@@ -830,35 +804,6 @@ const TRIANGLES_DATA = [
   {
     id: 7,
     topic: 'height',
-    topicLabel: 'Высота = катет',
-    title: '△ABC (прямоугольный)',
-    question: 'Назовите высоту к основанию AC',
-    answer: 'Сторона BC (BC ⊥ AC)',
-    solution: 'В треугольнике ABC угол ∠C = 90°. Прямой угол соединяет катеты AC и BC. К основанию AC высотой является катет BC!',
-    draw: (svg, f) => {
-      const s = f ? 2.0 : 1.0;
-      const ox = f ? 120 : 0, oy = f ? 40 : 0;
-      svg.appendChild(createSvgElement('polygon', {
-        points: `${230*s+ox},${30*s+oy} ${230*s+ox},${115*s+oy} ${40*s+ox},${115*s+oy}`,
-        fill: '#eff6ff', stroke: '#94a3b8', 'stroke-width': '2'
-      }));
-      svg.appendChild(createSvgElement('line', {
-        x1: 40*s+ox, y1: 115*s+oy, x2: 230*s+ox, y2: 115*s+oy,
-        stroke: '#dc2626', 'stroke-width': f ? '6' : '3.5'
-      }));
-      svg.appendChild(createSvgElement('line', {
-        x1: 230*s+ox, y1: 30*s+oy, x2: 230*s+ox, y2: 115*s+oy,
-        stroke: '#047857', 'stroke-width': f ? '6' : '3.5'
-      }));
-      drawRightAngleMarker(svg, 230*s+ox, 115*s+oy, f ? 18 : 10, -1, -1);
-      drawPillBadge(svg, 'B', 230*s+ox, 18*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
-      drawPillBadge(svg, 'C (90°)', 240*s+ox, 128*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 13 : 10);
-      drawPillBadge(svg, 'A', 30*s+ox, 115*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 14 : 11);
-    }
-  },
-  {
-    id: 8,
-    topic: 'height',
     topicLabel: 'Правило тупоугольного',
     title: '△XYZ (тупоугольный)',
     question: 'Что нужно сделать со стороной YZ, чтобы провести высоту из X?',
@@ -890,31 +835,7 @@ const TRIANGLES_DATA = [
     }
   },
   {
-    id: 9,
-    topic: 'height',
-    topicLabel: 'Теория высот',
-    title: '△ABC (3 высоты)',
-    question: 'Сколько всего различных высот можно провести в одном треугольнике?',
-    answer: 'Ровно 3 высоты (к каждой из трёх сторон)',
-    solution: 'У любого треугольника 3 стороны. Каждую из них можно выбрать основанием, поэтому в любом треугольнике всегда существует ровно 3 высоты.',
-    draw: (svg, f) => {
-      const s = f ? 2.0 : 1.0;
-      const ox = f ? 120 : 0, oy = f ? 40 : 0;
-      svg.appendChild(createSvgElement('polygon', {
-        points: `${140*s+ox},${25*s+oy} ${35*s+ox},${115*s+oy} ${245*s+ox},${115*s+oy}`,
-        fill: '#eff6ff', stroke: '#2563eb', 'stroke-width': '2.5'
-      }));
-      // 3 altitudes faint green
-      svg.appendChild(createSvgElement('line', { x1: 140*s+ox, y1: 25*s+oy, x2: 140*s+ox, y2: 115*s+oy, stroke: '#047857', 'stroke-width': '2', 'stroke-dasharray': '4,3' }));
-      svg.appendChild(createSvgElement('line', { x1: 35*s+ox, y1: 115*s+oy, x2: 195*s+ox, y2: 68*s+oy, stroke: '#047857', 'stroke-width': '2', 'stroke-dasharray': '4,3' }));
-      svg.appendChild(createSvgElement('line', { x1: 245*s+ox, y1: 115*s+oy, x2: 85*s+ox, y2: 68*s+oy, stroke: '#047857', 'stroke-width': '2', 'stroke-dasharray': '4,3' }));
-      drawPillBadge(svg, 'h1', 140*s+ox, 70*s+oy, '#dcfce7', '#047857', '#86efac', f ? 12 : 9);
-      drawPillBadge(svg, 'h2', 110*s+ox, 90*s+oy, '#dcfce7', '#047857', '#86efac', f ? 12 : 9);
-      drawPillBadge(svg, 'h3', 170*s+ox, 90*s+oy, '#dcfce7', '#047857', '#86efac', f ? 12 : 9);
-    }
-  },
-  {
-    id: 10,
+    id: 8,
     topic: 'height',
     topicLabel: 'Задание из учебника',
     title: '△EFG (стр. 92 учебника)',
@@ -924,7 +845,6 @@ const TRIANGLES_DATA = [
     draw: (svg, f) => {
       const s = f ? 2.0 : 1.0;
       const ox = f ? 120 : 0, oy = f ? 40 : 0;
-      // F(130, 25), E(35, 115), G(240, 115)
       svg.appendChild(createSvgElement('polygon', {
         points: `${130*s+ox},${25*s+oy} ${35*s+ox},${115*s+oy} ${240*s+ox},${115*s+oy}`,
         fill: '#eff6ff', stroke: '#2563eb', 'stroke-width': '2'
@@ -945,9 +865,9 @@ const TRIANGLES_DATA = [
     }
   },
 
-  // --- 11 to 20: ВЫЧИСЛЕНИЕ ПЛОЩАДИ S = (a · h) : 2 И ОБРАТНЫЕ ЗАДАЧИ ---
+  // --- 9 to 15: ПЛОЩАДЬ S = (a · h) : 2 И ОБРАТНЫЕ ЗАДАЧИ ---
   {
-    id: 11,
+    id: 9,
     topic: 'area',
     topicLabel: 'Площадь S',
     title: '△ABC: a = 6 см, h = 4 см',
@@ -969,7 +889,7 @@ const TRIANGLES_DATA = [
     }
   },
   {
-    id: 12,
+    id: 10,
     topic: 'area',
     topicLabel: 'Площадь S',
     title: '△DEF: a = 10 см, h = 5 см',
@@ -990,7 +910,7 @@ const TRIANGLES_DATA = [
     }
   },
   {
-    id: 13,
+    id: 11,
     topic: 'area',
     topicLabel: 'Прямоугольный △',
     title: 'Прямоугольный △ (катеты 8 и 3 см)',
@@ -1010,7 +930,7 @@ const TRIANGLES_DATA = [
     }
   },
   {
-    id: 14,
+    id: 12,
     topic: 'area',
     topicLabel: 'Площадь S',
     title: '△KLM: a = 4 см, h = 7 см',
@@ -1031,7 +951,7 @@ const TRIANGLES_DATA = [
     }
   },
   {
-    id: 15,
+    id: 13,
     topic: 'area',
     topicLabel: 'По клеточкам (стр. 91)',
     title: '△PQR на сетке (1 клетка = 1 см)',
@@ -1052,7 +972,7 @@ const TRIANGLES_DATA = [
     }
   },
   {
-    id: 16,
+    id: 14,
     topic: 'area',
     topicLabel: 'Обратная задача',
     title: 'Найти h, если S = 20 см², a = 8 см',
@@ -1073,7 +993,7 @@ const TRIANGLES_DATA = [
     }
   },
   {
-    id: 17,
+    id: 15,
     topic: 'area',
     topicLabel: 'Обратная задача',
     title: 'Найти a, если S = 24 см², h = 6 см',
@@ -1092,9 +1012,11 @@ const TRIANGLES_DATA = [
       drawPillBadge(svg, 'a = ?', 140*s+ox, 128*s+oy, '#fee2e2', '#dc2626', '#fca5a5', f ? 13 : 10);
     }
   },
+
+  // --- 16 to 20: УГЛЫ, ПЕРИМЕТР И СВОЙСТВА ---
   {
-    id: 18,
-    topic: 'area',
+    id: 16,
+    topic: 'angles',
     topicLabel: 'Прямоугольный △',
     title: 'Прямоугольный △: S = 18 см², a = 4 см',
     question: 'Найдите длину второго катета b',
@@ -1114,49 +1036,7 @@ const TRIANGLES_DATA = [
     }
   },
   {
-    id: 19,
-    topic: 'area',
-    topicLabel: 'Площадь S',
-    title: '△XYZ: a = 12 см, h = 5 см',
-    question: 'Найдите площадь S треугольника',
-    answer: 'S = 30 см²',
-    solution: 'S = (a · h) : 2 = (12 · 5) : 2 = 60 : 2 = 30 см².',
-    draw: (svg, f) => {
-      const s = f ? 2.0 : 1.0;
-      const ox = f ? 120 : 0, oy = f ? 40 : 0;
-      svg.appendChild(createSvgElement('polygon', {
-        points: `${130*s+ox},${35*s+oy} ${30*s+ox},${115*s+oy} ${250*s+ox},${115*s+oy}`,
-        fill: '#eff6ff', stroke: '#2563eb', 'stroke-width': '2'
-      }));
-      svg.appendChild(createSvgElement('line', { x1: 130*s+ox, y1: 35*s+oy, x2: 130*s+ox, y2: 115*s+oy, stroke: '#047857', 'stroke-width': '3', 'stroke-dasharray': '4,3' }));
-      drawPillBadge(svg, 'h = 5 см', 170*s+ox, 75*s+oy, '#dcfce7', '#047857', '#86efac', f ? 13 : 10);
-      drawPillBadge(svg, 'a = 12 см', 140*s+ox, 128*s+oy, '#fee2e2', '#dc2626', '#fca5a5', f ? 13 : 10);
-    }
-  },
-  {
-    id: 20,
-    topic: 'area',
-    topicLabel: 'Обратная задача',
-    title: 'Найти h, если S = 36 см², a = 9 см',
-    question: 'Найдите неизвестную высоту h',
-    answer: 'h = 8 см',
-    solution: 'h = (2 · S) : a = (2 · 36) : 9 = 72 : 9 = 8 см.',
-    draw: (svg, f) => {
-      const s = f ? 2.0 : 1.0;
-      const ox = f ? 120 : 0, oy = f ? 40 : 0;
-      svg.appendChild(createSvgElement('polygon', {
-        points: `${140*s+ox},${30*s+oy} ${40*s+ox},${115*s+oy} ${240*s+ox},${115*s+oy}`,
-        fill: '#eff6ff', stroke: '#2563eb', 'stroke-width': '2'
-      }));
-      drawPillBadge(svg, 'S = 36 см²', 140*s+ox, 55*s+oy, '#fef3c7', '#b45309', '#fde68a', f ? 13 : 10);
-      drawPillBadge(svg, 'h = ?', 175*s+ox, 85*s+oy, '#dcfce7', '#047857', '#86efac', f ? 13 : 10);
-      drawPillBadge(svg, 'a = 9 см', 140*s+ox, 128*s+oy, '#fee2e2', '#dc2626', '#fca5a5', f ? 13 : 10);
-    }
-  },
-
-  // --- 21 to 30: ПЕРИМЕТР, УГЛЫ ТРЕУГОЛЬНИКА И КЛАССИФИКАЦИЯ ---
-  {
-    id: 21,
+    id: 17,
     topic: 'angles',
     topicLabel: 'Периметр P',
     title: '△ABC: стороны 5, 7 и 8 см',
@@ -1176,7 +1056,7 @@ const TRIANGLES_DATA = [
     }
   },
   {
-    id: 22,
+    id: 18,
     topic: 'angles',
     topicLabel: 'Равнобедренный △',
     title: 'Равнобедренный △ (боковые по 6 см, основание 4)',
@@ -1196,26 +1076,7 @@ const TRIANGLES_DATA = [
     }
   },
   {
-    id: 23,
-    topic: 'angles',
-    topicLabel: 'Равносторонний △',
-    title: 'Равносторонний △: P = 27 см',
-    question: 'Найдите длину стороны этого треугольника',
-    answer: 'Сторона a = 9 см',
-    solution: 'У равностороннего треугольника все три стороны равны: a = P : 3 = 27 : 3 = 9 см.',
-    draw: (svg, f) => {
-      const s = f ? 2.0 : 1.0;
-      const ox = f ? 120 : 0, oy = f ? 40 : 0;
-      svg.appendChild(createSvgElement('polygon', {
-        points: `${140*s+ox},${30*s+oy} ${50*s+ox},${115*s+oy} ${230*s+ox},${115*s+oy}`,
-        fill: '#f5f3ff', stroke: '#8b5cf6', 'stroke-width': '2.5'
-      }));
-      drawPillBadge(svg, 'P = 27 см', 140*s+ox, 70*s+oy, '#ede9fe', '#6d28d9', '#c4b5fd', f ? 14 : 11);
-      drawPillBadge(svg, 'a = ?', 140*s+ox, 128*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 13 : 10);
-    }
-  },
-  {
-    id: 24,
+    id: 19,
     topic: 'angles',
     topicLabel: 'Сумма углов 180°',
     title: '△ABC: ∠A = 50°, ∠B = 70°',
@@ -1235,7 +1096,7 @@ const TRIANGLES_DATA = [
     }
   },
   {
-    id: 25,
+    id: 20,
     topic: 'angles',
     topicLabel: 'Прямоугольный угол',
     title: 'Прямоугольный △: ∠D = 35°, ∠F = 90°',
@@ -1253,109 +1114,6 @@ const TRIANGLES_DATA = [
       drawPillBadge(svg, '35°', 80*s+ox, 45*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 13 : 10);
       drawPillBadge(svg, '90°', 50*s+ox, 128*s+oy, '#dcfce7', '#047857', '#86efac', f ? 12 : 9);
       drawPillBadge(svg, '∠E = ?', 200*s+ox, 105*s+oy, '#fef3c7', '#b45309', '#fde68a', f ? 13 : 10);
-    }
-  },
-  {
-    id: 26,
-    topic: 'angles',
-    topicLabel: 'Вид по углам',
-    title: '△WXY с углами 30°, 40°, 110°',
-    question: 'Определите вид треугольника по углам',
-    answer: 'Тупоугольный (так как 110° > 90°)',
-    solution: 'Если хотя бы один угол треугольника больше 90°, то треугольник называется тупоугольным (здесь угол 110° — тупой).',
-    draw: (svg, f) => {
-      const s = f ? 2.0 : 1.0;
-      const ox = f ? 110 : 0, oy = f ? 40 : 0;
-      svg.appendChild(createSvgElement('polygon', {
-        points: `${60*s+ox},${40*s+oy} ${140*s+ox},${115*s+oy} ${240*s+ox},${115*s+oy}`,
-        fill: '#fef2f2', stroke: '#dc2626', 'stroke-width': '2.5'
-      }));
-      drawPillBadge(svg, '110° (тупой)', 140*s+ox, 95*s+oy, '#fee2e2', '#dc2626', '#fca5a5', f ? 13 : 10);
-      drawPillBadge(svg, '30°', 75*s+ox, 55*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 12 : 9);
-      drawPillBadge(svg, '40°', 220*s+ox, 105*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 12 : 9);
-    }
-  },
-  {
-    id: 27,
-    topic: 'angles',
-    topicLabel: 'Все углы по 60°',
-    title: '△KLM: углы 60°, 60°, 60°',
-    question: 'Определите вид этого треугольника',
-    answer: 'Равносторонний (и остроугольный)',
-    solution: 'Если все три угла равны по 60°, то все три стороны равны между собой. Треугольник является равносторонним и остроугольным.',
-    draw: (svg, f) => {
-      const s = f ? 2.0 : 1.0;
-      const ox = f ? 120 : 0, oy = f ? 40 : 0;
-      svg.appendChild(createSvgElement('polygon', {
-        points: `${140*s+ox},${30*s+oy} ${50*s+ox},${115*s+oy} ${230*s+ox},${115*s+oy}`,
-        fill: '#eff6ff', stroke: '#2563eb', 'stroke-width': '2.5'
-      }));
-      drawPillBadge(svg, '60°', 140*s+ox, 50*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 12 : 9);
-      drawPillBadge(svg, '60°', 80*s+ox, 105*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 12 : 9);
-      drawPillBadge(svg, '60°', 200*s+ox, 105*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 12 : 9);
-    }
-  },
-  {
-    id: 28,
-    topic: 'angles',
-    topicLabel: 'Углы 45° и 45°',
-    title: '△ABC: ∠A = 45°, ∠B = 45°',
-    question: 'Найдите ∠C и определите вид треугольника',
-    answer: '∠C = 90° (прямоугольный равнобедренный)',
-    solution: '∠C = 180° - (45° + 45°) = 180° - 90° = 90°. Треугольник имеет прямой угол 90° и два равных угла, значит он прямоугольный равнобедренный.',
-    draw: (svg, f) => {
-      const s = f ? 2.0 : 1.0;
-      const ox = f ? 120 : 0, oy = f ? 40 : 0;
-      svg.appendChild(createSvgElement('polygon', {
-        points: `${140*s+ox},${35*s+oy} ${50*s+ox},${115*s+oy} ${230*s+ox},${115*s+oy}`,
-        fill: '#eff6ff', stroke: '#2563eb', 'stroke-width': '2.5'
-      }));
-      drawPillBadge(svg, '∠C = ?', 140*s+ox, 20*s+oy, '#dcfce7', '#047857', '#86efac', f ? 13 : 10);
-      drawPillBadge(svg, '45°', 80*s+ox, 105*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 12 : 9);
-      drawPillBadge(svg, '45°', 200*s+ox, 105*s+oy, '#ffffff', '#0f172a', '#94a3b8', f ? 12 : 9);
-    }
-  },
-  {
-    id: 29,
-    topic: 'area',
-    topicLabel: 'Текстовая задача',
-    title: 'Основание 14 см, высота в 2 раза меньше',
-    question: 'Найдите площадь S этого треугольника',
-    answer: 'S = 49 см²',
-    solution: 'Сначала найдём высоту: h = 14 : 2 = 7 см. Теперь площадь: S = (a · h) : 2 = (14 · 7) : 2 = 98 : 2 = 49 см².',
-    draw: (svg, f) => {
-      const s = f ? 2.0 : 1.0;
-      const ox = f ? 120 : 0, oy = f ? 40 : 0;
-      svg.appendChild(createSvgElement('polygon', {
-        points: `${120*s+ox},${30*s+oy} ${30*s+ox},${115*s+oy} ${250*s+ox},${115*s+oy}`,
-        fill: '#eff6ff', stroke: '#2563eb', 'stroke-width': '2'
-      }));
-      svg.appendChild(createSvgElement('line', { x1: 120*s+ox, y1: 30*s+oy, x2: 120*s+ox, y2: 115*s+oy, stroke: '#047857', 'stroke-width': '3', 'stroke-dasharray': '4,3' }));
-      drawPillBadge(svg, 'h = a : 2', 160*s+ox, 70*s+oy, '#dcfce7', '#047857', '#86efac', f ? 13 : 10);
-      drawPillBadge(svg, 'a = 14 см', 140*s+ox, 128*s+oy, '#fee2e2', '#dc2626', '#fca5a5', f ? 13 : 10);
-    }
-  },
-  {
-    id: 30,
-    topic: 'area',
-    topicLabel: 'Сравнение площадей',
-    title: 'Тупоугольный △ со стр. 91 учебника',
-    question: 'a = 4 см, внешняя h = 3 см. Найдите S',
-    answer: 'S = 6 см² (равна площади прямоугольного △)',
-    solution: 'Главный вывод стр. 91 учебника: даже если высота лежит снаружи, формула площади та же самая! S = (a · h) : 2 = (4 · 3) : 2 = 6 см². Площадь равна площади прямоугольного треугольника с такими же a и h!',
-    draw: (svg, f) => {
-      const s = f ? 2.0 : 1.0;
-      const ox = f ? 110 : 0, oy = f ? 40 : 0;
-      svg.appendChild(createSvgElement('polygon', {
-        points: `${60*s+ox},${40*s+oy} ${130*s+ox},${115*s+oy} ${230*s+ox},${115*s+oy}`,
-        fill: '#eff6ff', stroke: '#2563eb', 'stroke-width': '2'
-      }));
-      svg.appendChild(createSvgElement('line', { x1: 60*s+ox, y1: 115*s+oy, x2: 130*s+ox, y2: 115*s+oy, stroke: '#ef4444', 'stroke-width': '2.5', 'stroke-dasharray': '4,3' }));
-      svg.appendChild(createSvgElement('line', { x1: 130*s+ox, y1: 115*s+oy, x2: 230*s+ox, y2: 115*s+oy, stroke: '#dc2626', 'stroke-width': '4' }));
-      svg.appendChild(createSvgElement('line', { x1: 60*s+ox, y1: 40*s+oy, x2: 60*s+ox, y2: 115*s+oy, stroke: '#047857', 'stroke-width': '3', 'stroke-dasharray': '4,3' }));
-      drawRightAngleMarker(svg, 60*s+ox, 115*s+oy, f ? 16 : 9, 1, -1);
-      drawPillBadge(svg, 'h = 3 см', 60*s+ox, 25*s+oy, '#dcfce7', '#047857', '#86efac', f ? 13 : 10);
-      drawPillBadge(svg, 'a = 4 см', 180*s+ox, 128*s+oy, '#fee2e2', '#dc2626', '#fca5a5', f ? 13 : 10);
     }
   }
 ];
@@ -1378,11 +1136,11 @@ function renderTrianglesGrid() {
     card.setAttribute('data-id', data.id);
     card.setAttribute('data-topic', data.topic);
 
-    // Apply filter
+    // Filter logic
     if (currentFilter !== 'all') {
-      if (currentFilter === 'height' && !(data.id >= 1 && data.id <= 10)) card.style.display = 'none';
-      if (currentFilter === 'area' && !(data.id >= 11 && data.id <= 20)) card.style.display = 'none';
-      if (currentFilter === 'angles' && !(data.id >= 21 && data.id <= 30)) card.style.display = 'none';
+      if (currentFilter === 'height' && !(data.id >= 1 && data.id <= 8)) card.style.display = 'none';
+      if (currentFilter === 'area' && !(data.id >= 9 && data.id <= 15)) card.style.display = 'none';
+      if (currentFilter === 'angles' && !(data.id >= 16 && data.id <= 20)) card.style.display = 'none';
     }
 
     // Card Top
@@ -1415,7 +1173,6 @@ function renderTrianglesGrid() {
     `;
     card.appendChild(bottom);
 
-    // Click handler to open focus modal
     card.addEventListener('click', () => {
       openFocusModal(data.id);
     });
@@ -1450,9 +1207,9 @@ function openFocusModal(cardId) {
   if (solText) solText.textContent = data.solution;
   if (resText) resText.textContent = `Ответ: ${data.answer}`;
 
-  // Next/prev button labels
-  const prevId = data.id > 1 ? data.id - 1 : 30;
-  const nextId = data.id < 30 ? data.id + 1 : 1;
+  // Next/prev wrap around 20 items
+  const prevId = data.id > 1 ? data.id - 1 : 20;
+  const nextId = data.id < 20 ? data.id + 1 : 1;
   if (prevNum) prevNum.textContent = prevId;
   if (nextNum) nextNum.textContent = nextId;
 
@@ -1479,8 +1236,8 @@ window.closeFocusModal = closeFocusModal;
 
 function navigateCard(direction) {
   let nextId = currentActiveCardId + direction;
-  if (nextId < 1) nextId = 30;
-  if (nextId > 30) nextId = 1;
+  if (nextId < 1) nextId = 20;
+  if (nextId > 20) nextId = 1;
   openFocusModal(nextId);
 }
 window.navigateCard = navigateCard;
@@ -1501,10 +1258,8 @@ function refreshFocusModalAnswers() {
   }
 }
 
-// Teacher answer button in focus modal
 document.getElementById('focusTeacherAnsBtn').addEventListener('click', () => {
   if (isTeacherUnlocked) {
-    // Already unlocked
     sfx.playClick();
   } else {
     openPinModal();
@@ -1524,7 +1279,6 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
   });
 });
 
-// Fit Screen vs Scroll Mode Toggle
 const btnFitScreen = document.getElementById('btnFitScreen');
 const btnScrollMode = document.getElementById('btnScrollMode');
 
@@ -1546,7 +1300,6 @@ if (btnFitScreen && btnScrollMode) {
   });
 }
 
-// Fullscreen Toggle
 const fullscreenBtn = document.getElementById('fullscreenBtn');
 if (fullscreenBtn) {
   fullscreenBtn.addEventListener('click', () => {
@@ -1559,7 +1312,6 @@ if (fullscreenBtn) {
   });
 }
 
-// Sound Toggle
 const soundToggleBtn = document.getElementById('soundToggleBtn');
 const soundIcon = document.getElementById('soundIcon');
 if (soundToggleBtn && soundIcon) {

@@ -305,21 +305,21 @@ body.scroll-mode {
 }
 
 /* ==========================================================================
-   MAIN GRID STAGE (30 TRIANGLES FIT ON ONE SCREEN)
+   MAIN GRID STAGE (20 TRIANGLES FIT ON ONE SCREEN, 5x4)
    ========================================================================== */
 .grid-stage {
   width: 100vw;
   height: calc(100vh - 58px);
-  padding: 6px 10px;
+  padding: 8px 12px;
   box-sizing: border-box;
 }
 
-/* 6 Columns x 5 Rows Grid (Fits 100% on 1 screen) */
+/* 5 Columns x 4 Rows Grid (Fits 100% on 1 screen) */
 body.fit-screen-mode .triangles-grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(5, 1fr);
-  gap: 6px;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 8px;
   width: 100%;
   height: 100%;
 }
@@ -327,13 +327,13 @@ body.fit-screen-mode .triangles-grid {
 /* Scroll mode */
 body.scroll-mode .triangles-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 12px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
   padding-bottom: 2rem;
 }
 
 body.scroll-mode .tri-card {
-  height: 220px;
+  height: 230px;
 }
 
 /* ==========================================================================

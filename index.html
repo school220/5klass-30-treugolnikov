@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>30 Треугольников • Интерактивный тренажёр для электронной доски (5 класс)</title>
+  <title>20 Треугольников • Интерактивный тренажёр для электронной доски (5 класс)</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📐</text></svg>">
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,16 +19,16 @@
         <span class="logo-icon">📐</span>
         <div class="logo-text">
           <span class="logo-sub">МАТЕМАТИКА 5 КЛАСС</span>
-          <span class="logo-title">ТРЕНАЖЁР: 30 ТРЕУГОЛЬНИКОВ</span>
+          <span class="logo-title">ТРЕНАЖЁР: 20 ТРЕУГОЛЬНИКОВ</span>
         </div>
       </div>
 
       <!-- Quick Filter Pills -->
       <nav class="filter-nav" id="filterNav">
-        <button class="filter-btn active" data-filter="all">Все 30 карточек</button>
-        <button class="filter-btn" data-filter="height">Высота и основание (1–10)</button>
-        <button class="filter-btn" data-filter="area">Площадь S (11–20)</button>
-        <button class="filter-btn" data-filter="angles">Углы и периметр (21–30)</button>
+        <button class="filter-btn active" data-filter="all">Все 20 карточек</button>
+        <button class="filter-btn" data-filter="height">Высота и основание (1–8)</button>
+        <button class="filter-btn" data-filter="area">Площадь S (9–15)</button>
+        <button class="filter-btn" data-filter="angles">Углы и периметр (16–20)</button>
       </nav>
     </div>
 
@@ -36,8 +36,8 @@
     <div class="bar-right">
       <!-- Layout Fit Mode Toggle -->
       <div class="mode-toggle-group">
-        <button class="mode-btn active" id="btnFitScreen" title="Все 30 треугольников на один экран без прокрутки (6x5)">
-          ⛶ В один экран
+        <button class="mode-btn active" id="btnFitScreen" title="Все 20 треугольников на один экран без прокрутки (5x4)">
+          ⛶ В один экран (5×4)
         </button>
         <button class="mode-btn" id="btnScrollMode" title="Крупный режим с прокруткой">
           📜 Крупно
@@ -150,7 +150,7 @@
       </div>
 
       <div class="dialog-footer">
-        <button class="nav-card-btn" id="prevCardBtn" onclick="navigateCard(-1)">⬅ Предыдущий (#<span id="prevNum">30</span>)</button>
+        <button class="nav-card-btn" id="prevCardBtn" onclick="navigateCard(-1)">⬅ Предыдущий (#<span id="prevNum">20</span>)</button>
         <span class="nav-hint">Используйте стрелки ◄ / ► на клавиатуре или кнопки</span>
         <button class="nav-card-btn" id="nextCardBtn" onclick="navigateCard(1)">Следующий (#<span id="nextNum">2</span>) ➔</button>
       </div>
@@ -163,7 +163,7 @@
       <div class="pin-header">
         <span class="pin-shield">🛡️</span>
         <h3>Вход в режим учителя</h3>
-        <p>Введите секретный PIN-код для открытия ответов ко всем 30 треугольникам:</p>
+        <p>Введите секретный PIN-код для открытия ответов ко всем 20 треугольникам:</p>
       </div>
 
       <div class="pin-display-row">
