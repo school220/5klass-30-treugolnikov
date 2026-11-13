@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Самостоятельная работа: Основание и высота треугольника (5 класс)</title>
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 8mm 10mm 8mm 10mm;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+      color: #0f172a;
+      background: #ffffff;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      font-size: 11pt;
+      line-height: 1.3;
+    }
+
+    .sheet-page {
+      width: 100%;
+      height: 100%;
+      page-break-after: always;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .sheet-page:last-child {
+      page-break-after: auto;
+    }
+
+    /* ========================================================
+       PAGE 1: STUDENT WORKSHEET
+       ======================================================== */
+    .header-box {
+      border: 1.5px solid #2563eb;
+      border-radius: 8px;
+      padding: 8px 12px;
+      background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%);
+      margin-bottom: 8px;
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #cbd5e1;
+      padding-bottom: 4px;
+      margin-bottom: 6px;
+    }
+
+    .header-branding {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header-icon {
+      font-size: 20pt;
+      line-height: 1;
+    }
+
+    .header-titles h1 {
+      font-size: 13pt;
+      font-weight: 900;
+      color: #1e3a8a;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+    }
+
+    .header-titles .sub {
+      font-size: 8.5pt;
+      font-weight: 700;
+      color: #3b82f6;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .grade-badge {
+      font-size: 9pt;
+      font-weight: 800;
+      background: #2563eb;
+      color: #ffffff;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .student-fields {
+      display: grid;
+      grid-template-columns: 2.2fr 1fr 1fr 0.9fr;
+      gap: 10px;
+      font-size: 9pt;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    .field-line {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+
+    .field-line .line {
+      flex: 1;
+      border-bottom: 1.2px dashed #64748b;
+      min-height: 12px;
+    }
+
+    .score-box {
+      background: #ffffff;
+      border: 1.5px solid #2563eb;
+      border-radius: 5px;
+      padding: 2px 6px;
+      text-align: center;
+      font-weight: 800;
+      color: #1e3a8a;
+    }
+
+    /* Tasks Grid */
+    .tasks-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: repeat(3, 1fr);
+      gap: 8px;
+      flex: 1;
+    }
+
+    .task-card {
+      border: 1.2px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 6px 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: #ffffff;
+      position: relative;
+    }
+
+    .card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+
+    .card-num-title {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-num {
+      font-size: 8.5pt;
+      font-weight: 900;
+      background: #1e293b;
+      color: #ffffff;
+      padding: 1px 6px;
+      border-radius: 3px;
+    }
+
+    .card-title {
+      font-size: 8.5pt;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .find-target-pill {
+      font-size: 7.5pt;
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    .target-height {
+      background: #eff6ff;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
+    }
+
+    .target-base {
+      background: #fef2f2;
+      color: #b91c1c;
+      border: 1px solid #fecaca;
+    }
+
+    .target-trap {
+      background: #fffbeb;
+      color: #b45309;
+      border: 1px solid #fde68a;
+    }
+
+    .target-prop {
+      background: #faf5ff;
+      color: #6d28d9;
+      border: 1px solid #e9d5ff;
+    }
+
+    /* Diagram Canvas */
+    .card-diagram {
+      width: 100%;
+      height: 95px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 2px 0;
+    }
+
+    .card-diagram svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Card Question */
+    .card-question-box {
+      font-size: 8.2pt;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 4px;
+      line-height: 1.25;
+      background: #f8fafc;
+      padding: 3px 5px;
+      border-left: 2.5px solid #3b82f6;
+      border-radius: 0 4px 4px 0;
+    }
+
+    /* Fill-in Answer Lines */
+    .card-answer-fill {
+      border-top: 1px dashed #cbd5e1;
+      padding-top: 4px;
+      font-size: 8pt;
+      font-weight: 600;
+      color: #475569;
+    }
+
+    .fill-row {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      margin-top: 2px;
+    }
+
+    .fill-label {
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .fill-dots {
+      flex: 1;
+      border-bottom: 1.2px dotted #64748b;
+      min-height: 10px;
+    }
+
+    /* Page 1 Footer Memo */
+    .footer-memo {
+      margin-top: 6px;
+      border: 1px solid #93c5fd;
+      background: #eff6ff;
+      border-radius: 6px;
+      padding: 5px 10px;
+      font-size: 7.8pt;
+      color: #1e40af;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .footer-memo strong {
+      font-weight: 800;
+    }
+
+    /* ========================================================
+       PAGE 2: TEACHER KEY & GRADING CRITERIA
+       ======================================================== */
+    .teacher-header {
+      border: 1.5px solid #059669;
+      background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+      border-radius: 8px;
+      padding: 8px 12px;
+      margin-bottom: 8px;
+    }
+
+    .th-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+
+    .th-title {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #065f46;
+      font-size: 12pt;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .th-pin-badge {
+      font-family: monospace;
+      font-size: 8.5pt;
+      font-weight: 900;
+      background: #047857;
+      color: #ffffff;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    .th-sub {
+      font-size: 8pt;
+      color: #047857;
+      font-weight: 600;
+    }
+
+    /* Solutions Grid */
+    .solutions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: repeat(3, 1fr);
+      gap: 8px;
+      flex: 1;
+    }
+
+    .sol-card {
+      border: 1.2px solid #a7f3d0;
+      border-radius: 7px;
+      padding: 7px 9px;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .sol-card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 3px;
+    }
+
+    .sol-card-title {
+      font-size: 8.5pt;
+      font-weight: 800;
+      color: #065f46;
+    }
+
+    .sol-points-tag {
+      font-size: 7.5pt;
+      font-weight: 800;
+      background: #dcfce7;
+      color: #047857;
+      padding: 1px 5px;
+      border-radius: 3px;
+    }
+
+    .sol-answer-box {
+      background: #f0fdf4;
+      border-left: 3px solid #10b981;
+      padding: 4px 6px;
+      border-radius: 0 4px 4px 0;
+      margin-bottom: 4px;
+    }
+
+    .sol-answer-box .ans-title {
+      font-size: 7.5pt;
+      font-weight: 800;
+      color: #047857;
+      text-transform: uppercase;
+    }
+
+    .sol-answer-box .ans-val {
+      font-size: 9pt;
+      font-weight: 900;
+      color: #064e3b;
+    }
+
+    .sol-explanation {
+      font-size: 7.8pt;
+      color: #334155;
+      line-height: 1.3;
+      margin-bottom: 3px;
+    }
+
+    .sol-explanation strong {
+      color: #0f172a;
+    }
+
+    .sol-trap-note {
+      font-size: 7.2pt;
+      color: #b45309;
+      background: #fffbeb;
+      padding: 2px 4px;
+      border-radius: 3px;
+      border: 1px solid #fde68a;
+    }
+
+    /* Grading Scale Box */
+    .grading-scale-box {
+      margin-top: 6px;
+      border: 1.5px solid #059669;
+      background: #f0fdf4;
+      border-radius: 6px;
+      padding: 6px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .scale-title {
+      font-size: 8.5pt;
+      font-weight: 800;
+      color: #065f46;
+    }
+
+    .scale-items {
+      display: flex;
+      gap: 12px;
+      font-size: 8.5pt;
+      font-weight: 800;
+    }
+
+    .scale-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .badge-5 { background: #15803d; color: white; padding: 1px 5px; border-radius: 3px; }
+    .badge-4 { background: #2563eb; color: white; padding: 1px 5px; border-radius: 3px; }
+    .badge-3 { background: #d97706; color: white; padding: 1px 5px; border-radius: 3px; }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================================
+       PAGE 1: СТИЛЬНЫЙ РАЗДАТОЧНЫЙ МАТЕРИАЛ ДЛЯ УЧЕНИКА
+       ======================================================== -->
+  <div class="sheet-page">
+    
+    <!-- Header -->
+    <header class="header-box">
+      <div class="header-top">
+        <div class="header-branding">
+          <span class="header-icon">📐</span>
+          <div class="header-titles">
+            <h1>Самостоятельная работа: «Основание и высота треугольника»</h1>
+            <div class="sub">Математика • 5 класс • Геометрический тренажёр (по учебнику, стр. 91–92)</div>
+          </div>
+        </div>
+        <div class="grade-badge">Вариант 1</div>
+      </div>
+
+      <div class="student-fields">
+        <div class="field-line">
+          <span class="field-lbl">Ф.И. ученика:</span>
+          <span class="line"></span>
+        </div>
+        <div class="field-line">
+          <span class="field-lbl">Класс:</span>
+          <span>5 «</span><span class="line" style="min-width: 25px;"></span><span>»</span>
+        </div>
+        <div class="field-line">
+          <span class="field-lbl">Дата:</span>
+          <span class="line"></span>
+        </div>
+        <div class="score-box">
+          Оценка: [ &nbsp;&nbsp;&nbsp;&nbsp; / 6 ]
+        </div>
+      </div>
+    </header>
+
+    <!-- 6 Tasks Grid (2 columns x 3 rows) -->
+    <main class="tasks-grid">
+
+      <!-- TASK 1 -->
+      <article class="task-card">
+        <div class="card-head">
+          <div class="card-num-title">
+            <span class="card-num">№1</span>
+            <span class="card-title">△ABC (Остроугольный)</span>
+          </div>
+          <span class="find-target-pill target-height">🎯 Найти: высоту к AC</span>
+        </div>
+
+        <div class="card-diagram">
+          <svg viewBox="0 0 280 130" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="grid-1" width="16" height="16" patternUnits="userSpaceOnUse">
+                <path d="M 16 0 L 0 0 0 16" fill="none" stroke="#e2e8f0" stroke-width="0.8"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid-1)" rx="6"/>
+            <!-- Triangle -->
+            <polygon points="140,25 35,105 245,105" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+            <!-- Red base AC -->
+            <line x1="35" y1="105" x2="245" y2="105" stroke="#dc2626" stroke-width="3.5"/>
+            <!-- Green height BD -->
+            <line x1="140" y1="25" x2="140" y2="105" stroke="#047857" stroke-width="2.5" stroke-dasharray="4,3"/>
+            <!-- Right angle marker -->
+            <rect x="130" y="95" width="10" height="10" fill="rgba(16, 185, 129, 0.25)" stroke="#10b981" stroke-width="1.5"/>
+            <!-- Labels -->
+            <g font-family="sans-serif" font-weight="900" font-size="11" text-anchor="middle">
+              <rect x="130" y="8" width="20" height="16" fill="#ffffff" stroke="#94a3b8" rx="3"/>
+              <text x="140" y="20" fill="#0f172a">B</text>
+              <rect x="15" y="97" width="20" height="16" fill="#ffffff" stroke="#94a3b8" rx="3"/>
+              <text x="25" y="109" fill="#0f172a">A</text>
+              <rect x="245" y="97" width="20" height="16" fill="#ffffff" stroke="#94a3b8" rx="3"/>
+              <text x="255" y="109" fill="#0f172a">C</text>
+              <rect x="130" y="110" width="20" height="15" fill="#dcfce7" stroke="#86efac" rx="3"/>
+              <text x="140" y="122" fill="#047857" font-size="10">D</text>
+            </g>
+          </svg>
+        </div>
+
+        <div class="card-question-box">
+          Назовите высоту к красному основанию AC. Из какой вершины треугольника она проведена?
+        </div>
+
+        <div class="card-answer-fill">
+          <div class="fill-row">
+            <span class="fill-label">1) Высота к AC:</span>
+            <span>отрезок</span> <span class="fill-dots"></span>
+          </div>
+          <div class="fill-row">
+            <span class="fill-label">2) Вершина напротив AC:</span>
+            <span>точка</span> <span class="fill-dots"></span>
+          </div>
+        </div>
+      </article>
+
+      <!-- TASK 2 -->
+      <article class="task-card">
+        <div class="card-head">
+          <div class="card-num-title">
+            <span class="card-num">№2</span>
+            <span class="card-title">△KLM (Прямоугольный)</span>
+          </div>
+          <span class="find-target-pill target-height">🎯 Найти: высоту к катету LM</span>
+        </div>
+
+        <div class="card-diagram">
+          <svg viewBox="0 0 280 130" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="grid-2" width="16" height="16" patternUnits="userSpaceOnUse">
+                <path d="M 16 0 L 0 0 0 16" fill="none" stroke="#e2e8f0" stroke-width="0.8"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid-2)" rx="6"/>
+            <!-- Triangle -->
+            <polygon points="55,25 55,105 240,105" fill="#eff6ff" stroke="#94a3b8" stroke-width="1.8"/>
+            <!-- Red base LM -->
+            <line x1="55" y1="105" x2="240" y2="105" stroke="#dc2626" stroke-width="3.5"/>
+            <!-- Green side KL (height) -->
+            <line x1="55" y1="25" x2="55" y2="105" stroke="#047857" stroke-width="3.5"/>
+            <!-- Right angle at L -->
+            <rect x="55" y="95" width="10" height="10" fill="rgba(16, 185, 129, 0.25)" stroke="#10b981" stroke-width="1.5"/>
+            <!-- Labels -->
+            <g font-family="sans-serif" font-weight="900" font-size="11" text-anchor="middle">
+              <rect x="45" y="8" width="20" height="16" fill="#dcfce7" stroke="#86efac" rx="3"/>
+              <text x="55" y="20" fill="#047857">K</text>
+              <rect x="25" y="108" width="46" height="15" fill="#ffffff" stroke="#94a3b8" rx="3"/>
+              <text x="48" y="120" fill="#0f172a" font-size="9.5">L (90°)</text>
+              <rect x="238" y="97" width="20" height="16" fill="#ffffff" stroke="#94a3b8" rx="3"/>
+              <text x="248" y="109" fill="#0f172a">M</text>
+            </g>
+          </svg>
+        </div>
+
+        <div class="card-question-box">
+          Какая сторона треугольника является высотой к основанию LM? Почему не нужно проводить новую линию?
+        </div>
+
+        <div class="card-answer-fill">
+          <div class="fill-row">
+            <span class="fill-label">1) Сторона-высота:</span>
+            <span>отрезок</span> <span class="fill-dots"></span>
+          </div>
+          <div class="fill-row">
+            <span class="fill-label">2) Причина:</span>
+            <span>угол ∠L =</span> <span class="fill-dots"></span>
+          </div>
+        </div>
+      </article>
+
+      <!-- TASK 3 -->
+      <article class="task-card">
+        <div class="card-head">
+          <div class="card-num-title">
+            <span class="card-num">№3</span>
+            <span class="card-title">△DEF (Тупоугольный)</span>
+          </div>
+          <span class="find-target-pill target-base">🎯 Где высота: внутри или снаружи?</span>
+        </div>
+
+        <div class="card-diagram">
+          <svg viewBox="0 0 280 130" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="grid-3" width="16" height="16" patternUnits="userSpaceOnUse">
+                <path d="M 16 0 L 0 0 0 16" fill="none" stroke="#e2e8f0" stroke-width="0.8"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid-3)" rx="6"/>
+            <!-- Triangle -->
+            <polygon points="50,25 120,105 240,105" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+            <!-- Dashed extension of DF -->
+            <line x1="50" y1="105" x2="120" y2="105" stroke="#ef4444" stroke-width="2.5" stroke-dasharray="4,3"/>
+            <!-- Red base DF -->
+            <line x1="120" y1="105" x2="240" y2="105" stroke="#dc2626" stroke-width="3.5"/>
+            <!-- External green height EG -->
+            <line x1="50" y1="25" x2="50" y2="105" stroke="#047857" stroke-width="2.5" stroke-dasharray="4,3"/>
+            <!-- Right angle at G -->
+            <rect x="50" y="95" width="10" height="10" fill="rgba(16, 185, 129, 0.25)" stroke="#10b981" stroke-width="1.5"/>
+            <!-- Labels -->
+            <g font-family="sans-serif" font-weight="900" font-size="11" text-anchor="middle">
+              <rect x="40" y="8" width="20" height="16" fill="#ffffff" stroke="#94a3b8" rx="3"/>
+              <text x="50" y="20" fill="#0f172a">E</text>
+              <rect x="100" y="110" width="56" height="15" fill="#ffffff" stroke="#94a3b8" rx="3"/>
+              <text x="128" y="122" fill="#0f172a" font-size="9">D (тупой)</text>
+              <rect x="238" y="97" width="20" height="16" fill="#ffffff" stroke="#94a3b8" rx="3"/>
+              <text x="248" y="109" fill="#0f172a">F</text>
+              <rect x="35" y="110" width="20" height="15" fill="#dcfce7" stroke="#86efac" rx="3"/>
+              <text x="45" y="122" fill="#047857" font-size="10">G</text>
+            </g>
+          </svg>
+        </div>
+
+        <div class="card-question-box">
+          Где лежит высота EG к основанию DF — внутри или снаружи? Что сделано с основанием DF?
+        </div>
+
+        <div class="card-answer-fill">
+          <div class="fill-row">
+            <span class="fill-label">1) Высота лежит:</span>
+            <span class="fill-dots"></span>
+          </div>
+          <div class="fill-row">
+            <span class="fill-label">2) Сторону DF продлили:</span>
+            <span class="fill-dots"></span>
+          </div>
+        </div>
+      </article>
+
+      <!-- TASK 4 -->
+      <article class="task-card">
+        <div class="card-head">
+          <div class="card-num-title">
+            <span class="card-num">№4</span>
+            <span class="card-title">△PQR (Ловушка с 2 высотами)</span>
+          </div>
+          <span class="find-target-pill target-trap">🎯 Высота к PQ: RS или QT?</span>
+        </div>
+
+        <div class="card-diagram">
+          <svg viewBox="0 0 280 130" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="grid-4" width="16" height="16" patternUnits="userSpaceOnUse">
+                <path d="M 16 0 L 0 0 0 16" fill="none" stroke="#e2e8f0" stroke-width="0.8"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid-4)" rx="6"/>
+            <!-- Triangle -->
+            <polygon points="140,22 40,105 240,105" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+            <!-- Red base PQ -->
+            <line x1="40" y1="105" x2="240" y2="105" stroke="#dc2626" stroke-width="3.5"/>
+            <!-- Height RS -->
+            <line x1="140" y1="22" x2="140" y2="105" stroke="#047857" stroke-width="2.5" stroke-dasharray="4,3"/>
+            <rect x="130" y="95" width="10" height="10" fill="rgba(16, 185, 129, 0.25)" stroke="#10b981" stroke-width="1.5"/>
+            <!-- Other perpendicular QT -->
+            <line x1="240" y1="105" x2="85" y2="60" stroke="#94a3b8" stroke-width="1.8" stroke-dasharray="3,3"/>
+            <!-- Labels -->
+            <g font-family="sans-serif" font-weight="900" font-size="11" text-anchor="middle">
+              <rect x="130" y="6" width="20" height="16" fill="#ffffff" stroke="#94a3b8" rx="3"/>
+              <text x="140" y="18" fill="#0f172a">R</text>
+              <rect x="25" y="97" width="20" height="16" fill="#ffffff" stroke="#94a3b8" rx="3"/>
+              <text x="35" y="109" fill="#0f172a">P</text>
+              <rect x="240" y="97" width="20" height="16" fill="#ffffff" stroke="#94a3b8" rx="3"/>
+              <text x="250" y="109" fill="#0f172a">Q</text>
+              <rect x="130" y="110" width="20" height="15" fill="#dcfce7" stroke="#86efac" rx="3"/>
+              <text x="140" y="122" fill="#047857" font-size="10">S</text>
+              <rect x="65" y="48" width="58" height="14" fill="#fee2e2" stroke="#fca5a5" rx="3"/>
+              <text x="94" y="59" fill="#dc2626" font-size="8.5">T (к PR!)</text>
+            </g>
+          </svg>
+        </div>
+
+        <div class="card-question-box">
+          Какая высота проведена именно к красному основанию PQ: отрезок RS или QT? Обоснуйте выбор.
+        </div>
+
+        <div class="card-answer-fill">
+          <div class="fill-row">
+            <span class="fill-label">1) Высота к основанию PQ:</span>
+            <span>отрезок</span> <span class="fill-dots"></span>
+          </div>
+          <div class="fill-row">
+            <span class="fill-label">2) Отрезок QT проведён к:</span>
+            <span>стороне</span> <span class="fill-dots"></span>
+          </div>
+        </div>
+      </article>
+
+      <!-- TASK 5 -->
+      <article class="task-card">
+        <div class="card-head">
+          <div class="card-num-title">
+            <span class="card-num">№5</span>
+            <span class="card-title">△ABC (Проверка правила)</span>
+          </div>
+          <span class="find-target-pill target-trap">🎯 Высота ли отрезок KD?</span>
+        </div>
+
+        <div class="card-diagram">
+          <svg viewBox="0 0 280 130" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="grid-5" width="16" height="16" patternUnits="userSpaceOnUse">
+                <path d="M 16 0 L 0 0 0 16" fill="none" stroke="#e2e8f0" stroke-width="0.8"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid-5)" rx="6"/>
+            <!-- Triangle -->
+            <polygon points="140,22 35,105 245,105" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+            <!-- Red base AC -->
+            <line x1="35" y1="105" x2="245" y2="105" stroke="#dc2626" stroke-width="3.5"/>
+            <!-- KD from midpoint of AB -->
+            <line x1="88" y1="64" x2="88" y2="105" stroke="#d97706" stroke-width="2.5" stroke-dasharray="4,3"/>
+            <rect x="88" y="95" width="10" height="10" fill="rgba(245, 158, 11, 0.25)" stroke="#d97706" stroke-width="1.5"/>
+            <!-- Labels -->
+            <g font-family="sans-serif" font-weight="900" font-size="11" text-anchor="middle">
+              <rect x="130" y="6" width="20" height="16" fill="#ffffff" stroke="#94a3b8" rx="3"/>
+              <text x="140" y="18" fill="#0f172a">B</text>
+              <rect x="20" y="97" width="20" height="16" fill="#ffffff" stroke="#94a3b8" rx="3"/>
+              <text x="30" y="109" fill="#0f172a">A</text>
+              <rect x="245" y="97" width="20" height="16" fill="#ffffff" stroke="#94a3b8" rx="3"/>
+              <text x="255" y="109" fill="#0f172a">C</text>
+              <rect x="35" y="52" width="68" height="15" fill="#fef3c7" stroke="#fde68a" rx="3"/>
+              <text x="69" y="63" fill="#b45309" font-size="8.5">K (на стороне)</text>
+              <rect x="78" y="110" width="20" height="15" fill="#ffffff" stroke="#94a3b8" rx="3"/>
+              <text x="88" y="122" fill="#0f172a" font-size="10">D</text>
+            </g>
+          </svg>
+        </div>
+
+        <div class="card-question-box">
+          Отрезок KD перпендикулярен стороне AC (угол 90°). Является ли он высотой треугольника ABC? Почему?
+        </div>
+
+        <div class="card-answer-fill">
+          <div class="fill-row">
+            <span class="fill-label">1) Является ли KD высотой:</span>
+            <span>[ ДА / НЕТ ]</span> <span class="fill-dots"></span>
+          </div>
+          <div class="fill-row">
+            <span class="fill-label">2) Причина:</span>
+            <span>точка K не является</span> <span class="fill-dots"></span>
+          </div>
+        </div>
+      </article>
+
+      <!-- TASK 6 -->
+      <article class="task-card">
+        <div class="card-head">
+          <div class="card-num-title">
+            <span class="card-num">№6</span>
+            <span class="card-title">△ABC (Свойства высот)</span>
+          </div>
+          <span class="find-target-pill target-prop">🎯 Сколько высот в △?</span>
+        </div>
+
+        <div class="card-diagram">
+          <svg viewBox="0 0 280 130" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="grid-6" width="16" height="16" patternUnits="userSpaceOnUse">
+                <path d="M 16 0 L 0 0 0 16" fill="none" stroke="#e2e8f0" stroke-width="0.8"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid-6)" rx="6"/>
+            <!-- Triangle -->
+            <polygon points="130,22 40,105 240,105" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+            <!-- 3 Heights -->
+            <line x1="130" y1="22" x2="130" y2="105" stroke="#047857" stroke-width="2.2" stroke-dasharray="4,3"/>
+            <line x1="40" y1="105" x2="175" y2="58" stroke="#7c3aed" stroke-width="2.2" stroke-dasharray="4,3"/>
+            <line x1="240" y1="105" x2="90" y2="60" stroke="#d97706" stroke-width="2.2" stroke-dasharray="4,3"/>
+            <!-- Center badge -->
+            <rect x="85" y="60" width="90" height="16" fill="#ecfdf5" stroke="#86efac" rx="3"/>
+            <text x="130" y="72" fill="#047857" font-family="sans-serif" font-weight="900" font-size="9" text-anchor="middle">3 ВЫСОТЫ В ТРЕУГОЛЬНИКЕ</text>
+            <!-- Labels -->
+            <g font-family="sans-serif" font-weight="900" font-size="11" text-anchor="middle">
+              <rect x="120" y="6" width="20" height="16" fill="#ffffff" stroke="#94a3b8" rx="3"/>
+              <text x="130" y="18" fill="#0f172a">B</text>
+              <rect x="25" y="97" width="20" height="16" fill="#ffffff" stroke="#94a3b8" rx="3"/>
+              <text x="35" y="109" fill="#0f172a">A</text>
+              <rect x="240" y="97" width="20" height="16" fill="#ffffff" stroke="#94a3b8" rx="3"/>
+              <text x="250" y="109" fill="#0f172a">C</text>
+            </g>
+          </svg>
+        </div>
+
+        <div class="card-question-box">
+          1) Сколько всего высот можно провести в любом треугольнике? 2) Из чего выходит каждая высота?
+        </div>
+
+        <div class="card-answer-fill">
+          <div class="fill-row">
+            <span class="fill-label">1) Всего высот в треугольнике:</span>
+            <span>ровно</span> <span class="fill-dots"></span>
+          </div>
+          <div class="fill-row">
+            <span class="fill-label">2) Каждая высота выходит из:</span>
+            <span>противолежащей</span> <span class="fill-dots"></span>
+          </div>
+        </div>
+      </article>
+
+    </main>
+
+    <!-- Page 1 Memo Footer -->
+    <footer class="footer-memo">
+      <span>💡</span>
+      <div>
+        <strong>Памятка пятиклассника:</strong> Высотой треугольника называется <em>перпендикуляр</em> (отрезок под прямым углом 90°), опущенный из <em>противолежащей вершины</em> на прямую, содержащую сторону-основание. Знак <strong>⊥</strong> означает «перпендикулярно».
+      </div>
+    </footer>
+
+  </div>
+
+
+  <!-- ========================================================
+       PAGE 2: КЛЮЧИ И КРИТЕРИИ ОЦЕНИВАНИЯ ДЛЯ УЧИТЕЛЯ
+       ======================================================== -->
+  <div class="sheet-page">
+
+    <!-- Teacher Header -->
+    <header class="teacher-header">
+      <div class="th-top">
+        <div class="th-title">
+          <span>🛡️</span>
+          <span>Ключ к самостоятельной работе и критерии оценивания</span>
+        </div>
+        <div class="th-pin-badge">PIN тренажёра: 5605741</div>
+      </div>
+      <div class="th-sub">
+        Материалы для быстрой проверки учителем • Полные обоснования и типичные ошибки пятиклассников
+      </div>
+    </header>
+
+    <!-- 6 Solutions Grid -->
+    <main class="solutions-grid">
+
+      <!-- SOL 1 -->
+      <article class="sol-card">
+        <div class="sol-card-head">
+          <span class="sol-card-title">Задание №1. △ABC (Остроугольный)</span>
+          <span class="sol-points-tag">1 балл</span>
+        </div>
+        <div class="sol-answer-box">
+          <div class="ans-title">Эталонный ответ:</div>
+          <div class="ans-val">1) Высота BD (или DB); 2) Вершина B</div>
+        </div>
+        <div class="sol-explanation">
+          <strong>Обоснование:</strong> Сторона AC лежит напротив вершины B. Из точки B под углом 90° на сторону AC опущен отрезок BD. Запись: BD ⊥ AC.
+        </div>
+        <div class="sol-trap-note">
+          ⚠️ <em>Частая ошибка:</em> дети путают буквы и называют основанием высоту (пишут AC вместо BD).
+        </div>
+      </article>
+
+      <!-- SOL 2 -->
+      <article class="sol-card">
+        <div class="sol-card-head">
+          <span class="sol-card-title">Задание №2. △KLM (Прямоугольный)</span>
+          <span class="sol-points-tag">1 балл</span>
+        </div>
+        <div class="sol-answer-box">
+          <div class="ans-title">Эталонный ответ:</div>
+          <div class="ans-val">1) Катет KL; 2) Угол ∠L = 90° (прямой)</div>
+        </div>
+        <div class="sol-explanation">
+          <strong>Обоснование:</strong> В прямоугольном треугольнике стороны прямого угла (катеты) взаимно перпендикулярны: KL ⊥ LM. Сторона KL уже выходит из вершины K и образует угол 90° с основанием LM.
+        </div>
+        <div class="sol-trap-note">
+          ⚠️ <em>Частая ошибка:</em> пятиклассники пытаются провести «новую» высоту из вершины K внутрь треугольника.
+        </div>
+      </article>
+
+      <!-- SOL 3 -->
+      <article class="sol-card">
+        <div class="sol-card-head">
+          <span class="sol-card-title">Задание №3. △DEF (Тупоугольный)</span>
+          <span class="sol-points-tag">1 балл</span>
+        </div>
+        <div class="sol-answer-box">
+          <div class="ans-title">Эталонный ответ:</div>
+          <div class="ans-val">1) Снаружи; 2) Продлили пунктиром по прямой</div>
+        </div>
+        <div class="sol-explanation">
+          <strong>Обоснование:</strong> Так как угол ∠D тупой (> 90°), вершина E «нависает» сбоку. Отрезок DF продлевают по линейке пунктиром влево за вершину D, и перпендикуляр EG падает на это продолжение снаружи!
+        </div>
+        <div class="sol-trap-note">
+          ⚠️ <em>Частая ошибка:</em> дети думают, что высота всегда обязана быть строго внутри треугольника.
+        </div>
+      </article>
+
+      <!-- SOL 4 -->
+      <article class="sol-card">
+        <div class="sol-card-head">
+          <span class="sol-card-title">Задание №4. △PQR (Ловушка с 2 высотами)</span>
+          <span class="sol-points-tag">1 балл</span>
+        </div>
+        <div class="sol-answer-box">
+          <div class="ans-title">Эталонный ответ:</div>
+          <div class="ans-val">1) Отрезок RS; 2) К другой стороне PR</div>
+        </div>
+        <div class="sol-explanation">
+          <strong>Обоснование:</strong> Напротив основания PQ лежит вершина R. Именно из неё опущен перпендикуляр RS ⊥ PQ. Второй перпендикуляр QT опущен из вершины Q на совсем другую сторону — PR!
+        </div>
+        <div class="sol-trap-note">
+          ⚠️ <em>Задание из рабочей тетради:</em> проверяет умение сопоставлять конкретную высоту с её основанием.
+        </div>
+      </article>
+
+      <!-- SOL 5 -->
+      <article class="sol-card">
+        <div class="sol-card-head">
+          <span class="sol-card-title">Задание №5. △ABC (Проверка правила)</span>
+          <span class="sol-points-tag">1 балл</span>
+        </div>
+        <div class="sol-answer-box">
+          <div class="ans-title">Эталонный ответ:</div>
+          <div class="ans-val">1) НЕТ, не является; 2) Не из вершины (точка K на AB)</div>
+        </div>
+        <div class="sol-explanation">
+          <strong>Обоснование:</strong> По определению высота ОБЯЗАНА выходить строго из противолежащей вершины B. Отрезок KD перпендикулярен основанию AC, но начинается на середине стороны AB. Значит, KD — не высота △ABC!
+        </div>
+        <div class="sol-trap-note">
+          ⚠️ <em>Ключевой навык:</em> умение проверять оба условия высоты (вершина + угол 90°).
+        </div>
+      </article>
+
+      <!-- SOL 6 -->
+      <article class="sol-card">
+        <div class="sol-card-head">
+          <span class="sol-card-title">Задание №6. △ABC (Свойства высот)</span>
+          <span class="sol-points-tag">1 балл</span>
+        </div>
+        <div class="sol-answer-box">
+          <div class="ans-title">Эталонный ответ:</div>
+          <div class="ans-val">1) Ровно 3 высоты; 2) Из противолежащей вершины</div>
+        </div>
+        <div class="sol-explanation">
+          <strong>Обоснование:</strong> У любого треугольника 3 стороны и 3 вершины. К каждой из трёх сторон можно провести перпендикуляр из противолежащей ей вершины. Все три высоты пересекаются в одной точке.
+        </div>
+        <div class="sol-trap-note">
+          ⚠️ <em>Теорема учебника:</em> закрепляет факт о существовании ровно 3 высот в любом треугольнике.
+        </div>
+      </article>
+
+    </main>
+
+    <!-- Grading Scale -->
+    <footer class="grading-scale-box">
+      <div class="scale-title">
+        📊 Шкала перевода первичных баллов в школьную отметку:
+      </div>
+      <div class="scale-items">
+        <div class="scale-item">
+          <span class="badge-5">Отметка «5»</span>
+          <span>— 6 баллов (100% верных ответов)</span>
+        </div>
+        <div class="scale-item">
+          <span class="badge-5" style="background:#16a34a;">Отметка «5-»</span>
+          <span>— 5 баллов</span>
+        </div>
+        <div class="scale-item">
+          <span class="badge-4">Отметка «4»</span>
+          <span>— 4 балла</span>
+        </div>
+        <div class="scale-item">
+          <span class="badge-3">Отметка «3»</span>
+          <span>— 3 балла</span>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+</body>
+</html>
